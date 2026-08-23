@@ -1,0 +1,24 @@
+# TP Grupal OO2 2026 — Sistema de Gestión "Epicentro Gourmet"
+
+**Grupo:** 12
+
+## Integrantes
+
+| Nombre y Apellido | Usuario GitHub |
+|---|---|
+| _completar_ | _completar_ |
+| _completar_ | _completar_ |
+| _completar_ | _completar_ |
+| _completar_ | _completar_ |
+
+## Cómo trabajamos
+
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para el setup local (vincular las librerías de Hibernate, configurar la base de datos) y el flujo de git que usamos.
+
+## Registro de actualizaciones
+
+Cada vez que se suma un Caso de Uso, se agrega una fila acá:
+
+| Caso de uso | Responsable | Fecha |
+|---|---|---|
+| _(ejemplo) Listado de cocineros por antigüedad_ | _(ejemplo) Juan Pérez_ | _(ejemplo) 25/08/2026_ |
