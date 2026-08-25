@@ -1,14 +1,3 @@
-/*package test;
-
-public class TestAgregarFestival {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-}
-*/
 package test;
 
 import negocio.FestivalABM;
