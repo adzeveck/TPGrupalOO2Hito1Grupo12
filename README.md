@@ -21,4 +21,4 @@ Cada vez que se suma un Caso de Uso, se agrega una fila acá:
 
 | Caso de uso | Responsable | Fecha |
 |---|---|---|
-| _(ejemplo) Listado de cocineros por antigüedad_ | _(ejemplo) Juan Pérez_ | _(ejemplo) 25/08/2026_ |
+| Mapeo de UnidadDeVenta con herencia (FoodTruck / PuestoDesarmable) | BautistaANun | 25/08/2026 |
