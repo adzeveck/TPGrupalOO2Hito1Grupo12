@@ -1,6 +1,8 @@
 package dao;
 
 import java.util.ArrayList;
+
+
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -78,8 +80,7 @@ public class FestivalDao {
 		List<Festival> lista = new ArrayList<Festival>();
 		try {
 			iniciaOperacion();
-			Query<Festival> query = session.createQuery("from Cliente c order by c.apellido asc, c.nombre asc",
-					Festival.class);
+			Query<Festival> query = session.createQuery("from Festival f order by f.nombre asc", Festival.class);
 			lista = query.getResultList();
 		} finally {
 			session.close();
