@@ -21,4 +21,4 @@ Cada vez que se suma un Caso de Uso, se agrega una fila acá:
 
 | Caso de uso | Responsable | Fecha |
 |---|---|---|
-| _(ejemplo) Listado de cocineros por antigüedad_ | _(ejemplo) Juan Pérez_ | _(ejemplo) 25/08/2026_ |
+| Mapeo de Pedido/DetallePedido (composición) y Plato, con consulta de Pedido + sus detalles + platos (join fetch) | adzeveck | 26/08/2026 |

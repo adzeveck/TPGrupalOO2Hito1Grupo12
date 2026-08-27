@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.Pedido" table="pedido">
+        <id name="idPedido" column="idPedido">
+            <generator class="identity"/>
+        </id>
+        <property name="fecha" column="fecha" type="java.time.LocalDate" not-null="true"/>
+
+        <!-- festival y unidad: pendientes, se agregan cuando esas clases
+             existan en main -->
+
+        <!-- Composicion: pedido 1 a 1,muchos con detallepedido
+             cascade="all-delete-orphan": si se borra el Pedido, se borran sus DetallePedido con él. -->
+        <set name="lstDetalle" table="detalle_pedido" inverse="true" cascade="all-delete-orphan" lazy="true">
+            <key column="idPedido" not-null="true"/>
+            <one-to-many class="datos.DetallePedido"/>
+        </set>
+    </class>
+</hibernate-mapping>

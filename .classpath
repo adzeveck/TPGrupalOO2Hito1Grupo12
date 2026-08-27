@@ -25,5 +25,6 @@
 	<classpathentry kind="var" path="HIBERNATE_LIBS/istack-commons-runtime-3.0.7.jar"/>
 	<classpathentry kind="var" path="HIBERNATE_LIBS/jandex-2.1.1.Final.jar"/>
 	<classpathentry kind="var" path="HIBERNATE_LIBS/javassist-3.24.0-GA.jar"/>
+	<classpathentry kind="var" path="HIBERNATE_LIBS"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
