@@ -12,6 +12,13 @@
         <property name="nombre" column="nombre" type="string" not-null="true"/>
         <property name="temporada" column="temporada" type="string" not-null="true"/>
         <property name="fechaInicio" column="fechaInicio" type="java.time.LocalDate" not-null="true"/>
-        <property name="fechaFin" column="fechaFin" type="java.time.LocalDate" not-null="true"/>  
+        <property name="fechaFin" column="fechaFin" type="java.time.LocalDate" not-null="true"/> 
+        <property name="costoSuperficie" column="costoSuperficie" type="double" not-null="true"/>
+        <property name="plusElectricidad" column="plusElectricidad" type="double" not-null="true"/>
+        <property name="costoMontaje" column="costoMontaje" type="double" not-null="true"/>
+        <property name="sueldoBase" column="sueldoBase" type="double" not-null="true"/> 
+        <property name="valorAnioAntiguedad" column="valorAnioAntiguedad" type="double" not-null="true"/>
+         
+<!--         <one-to-one name="contacto" class="datos.Contacto"></one-to-one> -->
     </class>
 </hibernate-mapping>
