@@ -18,7 +18,6 @@
         <property name="costoMontaje" column="costoMontaje" type="double" not-null="true"/>
         <property name="sueldoBase" column="sueldoBase" type="double" not-null="true"/> 
         <property name="valorAnioAntiguedad" column="valorAnioAntiguedad" type="double" not-null="true"/>
-         
-<!--         <one-to-one name="contacto" class="datos.Contacto"></one-to-one> -->
+        
     </class>
 </hibernate-mapping>

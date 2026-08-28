@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -89,18 +90,5 @@ public class FestivalDao {
 		}
 		return lista;
 	}
-	
-	public Festival traerFestivalYCosto(long idFestival) throws HibernateException{
-		Festival objeto = null;
-		try {
-		iniciaOperacion();
-		String hql ="from Festival f inner join fetch f.costo where f.idFestival = idFestival";
-		objeto = (Festival) session.createQuery(hql).setParameter("idFestival", idFestival).uniqueResult();
-		} finally {
-			session.close();
-		}
-		return objeto;
-	}
-
 
 }
