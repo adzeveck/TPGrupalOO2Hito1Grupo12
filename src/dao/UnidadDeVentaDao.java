@@ -63,11 +63,17 @@ public class UnidadDeVentaDao {
 		}
 	}
 
-	public UnidadDeVenta traer(long id) {
+	// festival se trae con left join fetch (no session.get() simple): es
+	// nullable y queda lazy por default, y el Dao cierra la sesion antes de
+	// que el toString() de FoodTruck/PuestoDesarmable lo necesite.
+	public UnidadDeVenta traer(int id) {
 		UnidadDeVenta objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (UnidadDeVenta) session.get(UnidadDeVenta.class, id);
+			objeto = (UnidadDeVenta) session
+					.createQuery("from UnidadDeVenta u left join fetch u.festival where u.id = :id")
+					.setParameter("id", id)
+					.uniqueResult();
 		} finally {
 			session.close();
 		}
@@ -79,7 +85,7 @@ public class UnidadDeVentaDao {
 		try {
 			iniciaOperacion();
 			objeto = (UnidadDeVenta) session
-					.createQuery("from UnidadDeVenta u where u.codigo = :codigo")
+					.createQuery("from UnidadDeVenta u left join fetch u.festival where u.codigo = :codigo")
 					.setParameter("codigo", codigo)
 					.uniqueResult();
 		} finally {
@@ -93,7 +99,8 @@ public class UnidadDeVentaDao {
 		try {
 			iniciaOperacion();
 			Query<UnidadDeVenta> query = session
-					.createQuery("from UnidadDeVenta u order by u.nombre asc", UnidadDeVenta.class);
+					.createQuery("from UnidadDeVenta u left join fetch u.festival order by u.nombre asc",
+							UnidadDeVenta.class);
 			lista = query.getResultList();
 		} finally {
 			session.close();

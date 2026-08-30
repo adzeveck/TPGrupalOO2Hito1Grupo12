@@ -34,6 +34,7 @@ public class FoodTruck extends UnidadDeVenta {
 	@Override
 	public String toString() {
 		return "FoodTruck [id=" + id + ", nombre=" + nombre + ", superficie=" + superficie + ", codigo=" + codigo
-				+ ", patente=" + patente + ", requiereElectricidad=" + requiereElectricidad + "]";
+				+ ", festival=" + festival + ", patente=" + patente + ", requiereElectricidad=" + requiereElectricidad
+				+ "]";
 	}
 }
