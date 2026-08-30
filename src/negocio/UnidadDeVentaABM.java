@@ -36,7 +36,7 @@ public class UnidadDeVentaABM {
 		}
 	}
 
-	public UnidadDeVenta traer(long id) {
+	public UnidadDeVenta traer(int id) {
 		return dao.traer(id);
 	}
 
@@ -56,7 +56,7 @@ public class UnidadDeVentaABM {
 		dao.actualizar(u);
 	}
 
-	public void eliminar(long id) throws Exception {
+	public void eliminar(int id) throws Exception {
 		UnidadDeVenta u = dao.traer(id);
 		if (u == null) {
 			throw new Exception("No existe la unidad de venta con id " + id);

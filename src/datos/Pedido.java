@@ -8,17 +8,16 @@ public class Pedido {
 
 	private long idPedido;
 	private LocalDate fecha;
-
-	// private Festival festival;
-	// private UnidadDeVenta unidad;
+	private UnidadDeVenta unidad;
 
 	private Set<DetallePedido> lstDetalle = new HashSet<DetallePedido>();
 
 	public Pedido() {
 	}
 
-	public Pedido(LocalDate fecha) {
+	public Pedido(LocalDate fecha, UnidadDeVenta unidad) {
 		this.fecha = fecha;
+		this.unidad = unidad;
 	}
 
 	public long getIdPedido() {
@@ -35,6 +34,19 @@ public class Pedido {
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+
+	// No hay campo "festival" a proposito: UnidadDeVenta ya sabe a que Festival
+	// pertenece (UnidadDeVenta.festival), asi que guardarlo tambien aca seria
+	// un dato redundante/derivable (pedido.getUnidad().getFestival()) con
+	// riesgo de quedar inconsistente. Decision confirmada con la catedra.
+
+	public UnidadDeVenta getUnidad() {
+		return unidad;
+	}
+
+	public void setUnidad(UnidadDeVenta unidad) {
+		this.unidad = unidad;
 	}
 
 	public Set<DetallePedido> getLstDetalle() {
@@ -63,6 +75,7 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", lstDetalle=" + lstDetalle + "]";
+		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", unidad=" + unidad + ", lstDetalle="
+				+ lstDetalle + "]";
 	}
 }

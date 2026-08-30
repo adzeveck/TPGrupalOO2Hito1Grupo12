@@ -52,9 +52,14 @@ public class PedidoDao {
 		Pedido objeto = null;
 		try {
 			iniciaOperacion();
+			// unidad.festival se trae con left join fetch (no inner): festival es
+			// nullable en UnidadDeVenta por ahora, e inner join descartaria el
+			// Pedido entero si esa columna estuviera vacia.
 			String hql = "select distinct p from Pedido p "
 					+ "inner join fetch p.lstDetalle d "
 					+ "inner join fetch d.plato "
+					+ "inner join fetch p.unidad u "
+					+ "left join fetch u.festival "
 					+ "where p.idPedido = :idPedido";
 			objeto = (Pedido) session.createQuery(hql).setParameter("idPedido", idPedido).uniqueResult();
 		} finally {

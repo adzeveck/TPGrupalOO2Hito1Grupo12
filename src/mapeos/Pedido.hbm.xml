@@ -9,8 +9,9 @@
         </id>
         <property name="fecha" column="fecha" type="java.time.LocalDate" not-null="true"/>
 
-        <!-- festival y unidad: pendientes, se agregan cuando esas clases
-             existan en main -->
+        <!-- No hay many-to-one a Festival a proposito: se deriva via unidad.festival,
+             guardarlo tambien aca seria redundante. -->
+        <many-to-one name="unidad" class="datos.UnidadDeVenta" column="idUnidad" not-null="true"/>
 
         <!-- Composicion: pedido 1 a 1,muchos con detallepedido
              cascade="all-delete-orphan": si se borra el Pedido, se borran sus DetallePedido con él. -->

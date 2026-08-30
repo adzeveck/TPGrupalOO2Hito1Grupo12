@@ -6,6 +6,7 @@ public abstract class UnidadDeVenta {
 	protected String nombre;
 	protected double superficie;
 	protected String codigo;
+	protected Festival festival;
 	
 	
 	public UnidadDeVenta() {
@@ -51,6 +52,13 @@ public abstract class UnidadDeVenta {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	
+
+	public Festival getFestival() {
+		return festival;
+	}
+
+	public void setFestival(Festival festival) {
+		this.festival = festival;
+	}
+
 }
