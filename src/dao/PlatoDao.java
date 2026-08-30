@@ -22,24 +22,24 @@ public class PlatoDao {
 	}
 
 	public int agregar(Plato objeto) {
-		int id = 0;
+		int idPlato = 0;
 		try {
 			iniciaOperacion();
-			id = Integer.parseInt(session.save(objeto).toString());
+			idPlato = Integer.parseInt(session.save(objeto).toString());
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 		} finally {
 			session.close();
 		}
-		return id;
+		return idPlato;
 	}
 
-	public Plato traer(int id) {
+	public Plato traer(int idPlato) {
 		Plato objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Plato) session.get(Plato.class, id);
+			objeto = (Plato) session.get(Plato.class, idPlato);
 		} finally {
 			session.close();
 		}

@@ -2,7 +2,7 @@ package datos;
 
 public class Plato {
 
-	private int id;
+	private int idPlato;
 	private String nombre;
 	private double precio;
 	private double costo;
@@ -16,12 +16,12 @@ public class Plato {
 		this.costo = costo;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdPlato() {
+		return idPlato;
 	}
 
-	protected void setId(int id) {
-		this.id = id;
+	protected void setIdPlato(int idPlato) {
+		this.idPlato = idPlato;
 	}
 
 	public String getNombre() {
@@ -50,6 +50,6 @@ public class Plato {
 
 	@Override
 	public String toString() {
-		return "Plato [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", costo=" + costo + "]";
+		return "Plato [idPlato=" + idPlato + ", nombre=" + nombre + ", precio=" + precio + ", costo=" + costo + "]";
 	}
 }

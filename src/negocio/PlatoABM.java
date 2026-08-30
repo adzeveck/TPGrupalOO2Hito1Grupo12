@@ -14,8 +14,8 @@ public class PlatoABM {
 		return dao.agregar(p);
 	}
 
-	public Plato traer(int id) {
-		return dao.traer(id);
+	public Plato traer(int idPlato) {
+		return dao.traer(idPlato);
 	}
 
 }
