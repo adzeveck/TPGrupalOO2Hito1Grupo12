@@ -17,12 +17,13 @@
 <property name="show_sql">true</property><!-- en true muestra el SQL generado en consola -->
 <property name="format_sql">true</property><!-- en true se ve más legible el SQL en consola -->
 <property name="hibernate.hbm2ddl.auto">update</property><!-- crea/actualiza las tablas solo, según los .hbm.xml -->
-<!-- Mapeo Entidades: descomenten la suya cuando tengan su hibernate.cfg.xml local armado -->
-<!-- <mapping resource="mapeos/Festival.hbm.xml" /> -->
-<!-- <mapping resource="mapeos/UnidadDeVenta.hbm.xml" /> -->
-<!-- <mapping resource="mapeos/Personal.hbm.xml" /> -->
-<!-- <mapping resource="mapeos/Plato.hbm.xml" /> -->
-<!-- <mapping resource="mapeos/Pedido.hbm.xml" /> -->
-<!-- <mapping resource="mapeos/DetallePedido.hbm.xml" /> -->
+<!-- Mapeo Entidades: las seis del modelo. Hibernate valida las referencias entre
+     mapeos al arrancar, asi que tienen que estar todas declaradas. -->
+<mapping resource="mapeos/Festival.hbm.xml" />
+<mapping resource="mapeos/UnidadDeVenta.hbm.xml" />
+<mapping resource="mapeos/Personal.hbm.xml" />
+<mapping resource="mapeos/Plato.hbm.xml" />
+<mapping resource="mapeos/Pedido.hbm.xml" />
+<mapping resource="mapeos/DetallePedido.hbm.xml" />
 </session-factory>
 </hibernate-configuration>
