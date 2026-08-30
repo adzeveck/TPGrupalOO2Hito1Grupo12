@@ -23,3 +23,4 @@ Cada vez que se suma un Caso de Uso, se agrega una fila acá:
 |---|---|---|
 | Mapeo de UnidadDeVenta con herencia (FoodTruck / PuestoDesarmable) | BautistaANun | 25/08/2026 |
 | Mapeo de Pedido/DetallePedido (composición) y Plato, con consulta de Pedido + sus detalles + platos (join fetch) | adzeveck | 26/08/2026 |
+| Consulta: cocineros de los food trucks con conexion electrica (herencia + uno a muchos) | BautistaANun | 30/08/2026 |

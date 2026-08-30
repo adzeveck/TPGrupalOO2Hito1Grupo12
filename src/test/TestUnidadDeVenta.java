@@ -3,6 +3,8 @@ package test;
 import java.time.LocalDate;
 import java.util.List;
 
+import datos.Cajero;
+import datos.Cocinero;
 import datos.Festival;
 import datos.UnidadDeVenta;
 import negocio.FestivalABM;
@@ -55,6 +57,26 @@ public class TestUnidadDeVenta {
 			System.out.println("No se pudo asociar el festival: " + e.getMessage());
 		}
 
+		// --- STAFF: personal asignado a cada unidad ---
+		try {
+			UnidadDeVenta ft = abm.traerPorCodigo("FT00000001");
+			if (ft != null && ft.getLstPersonal().isEmpty()) {
+				abm.asignarPersonal("FT00000001", new Cocinero("Ana", "Gomez", "30111222",
+						LocalDate.of(1985, 4, 12), LocalDate.of(2020, 3, 1), "Parrilla", 15000));
+				abm.asignarPersonal("FT00000001", new Cocinero("Luis", "Perez", "28999111",
+						LocalDate.of(1982, 9, 5), LocalDate.of(2019, 7, 15), "Pastas", 12000));
+				abm.asignarPersonal("FT00000001", new Cajero("Marta", "Diaz", "33444555",
+						LocalDate.of(1990, 1, 20), LocalDate.of(2021, 6, 1), "Manana"));
+				abm.asignarPersonal("PD00000001", new Cocinero("Jose", "Ruiz", "27000333",
+						LocalDate.of(1980, 11, 2), LocalDate.of(2018, 2, 10), "Empanadas", 11000));
+				System.out.println("\nStaff asignado.");
+			} else {
+				System.out.println("\nEl staff ya estaba asignado, no se duplica.");
+			}
+		} catch (Exception e) {
+			System.out.println("No se pudo asignar el staff: " + e.getMessage());
+		}
+
 		// --- CONSULTA POLIMORFICA: pido la clase padre y traigo las dos hijas ---
 		List<UnidadDeVenta> unidades = abm.traer();
 
@@ -66,5 +88,16 @@ public class TestUnidadDeVenta {
 		// --- BUSQUEDA POR CODIGO (metodo reusable, lo va a necesitar Pedido) ---
 		UnidadDeVenta buscada = abm.traerPorCodigo("FT00000001");
 		System.out.printf("%nBuscada por codigo FT00000001: %s%n", buscada);
+
+		// --- CASO DE USO: cocineros de los food trucks con conexion electrica ---
+		List<Object[]> filas = abm.traerCocinerosDeFoodTrucksConElectricidad();
+
+		System.out.println("\n--- CASO DE USO: cocineros en food trucks con conexion electrica ---");
+		System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n",
+				"FESTIVAL", "UNIDAD", "PATENTE", "COCINERO", "ESPECIALIDAD");
+		for (Object[] f : filas) {
+			System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n",
+					f[0], f[1], f[2], f[3] + ", " + f[4], f[5]);
+		}
 	}
 }

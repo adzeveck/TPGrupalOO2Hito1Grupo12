@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import datos.UnidadDeVenta;
+import datos.Personal;
 
 public class UnidadDeVentaDao {
 
@@ -107,4 +108,47 @@ public class UnidadDeVentaDao {
 		}
 		return lista;
 	}
+	
+	// Toda la operacion ocurre dentro de una misma sesion a proposito.
+	// Si trajera la unidad con traer() y le agregara el personal afuera, la
+	// coleccion estaria lazy sobre un objeto detached y saltaria
+	// LazyInitializationException.
+	public void asignarPersonal(int idUnidad, Personal p) {
+		try {
+			iniciaOperacion();
+			UnidadDeVenta u = session.get(UnidadDeVenta.class, idUnidad);
+			u.agregarPersonal(p);
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+		} finally {
+			session.close();
+		}
+	}
+
+	// CASO DE USO: cocineros asignados a los food trucks que requieren
+	// conexion electrica, con el festival en el que estan.
+	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero.
+	public List<Object[]> traerCocinerosDeFoodTrucksConElectricidad() {
+		List<Object[]> lista = new ArrayList<Object[]>();
+		try {
+			iniciaOperacion();
+			Query<Object[]> query = session.createQuery(
+					"select f.nombre, ft.nombre, ft.patente, c.apellido, c.nombre, c.especialidad "
+					+ "from FoodTruck ft "
+					+ "left join ft.festival f "
+					+ "join ft.lstPersonal c "
+					+ "where type(c) = Cocinero "
+					+ "and ft.requiereElectricidad = true "
+					+ "order by f.nombre asc, ft.nombre asc, c.apellido asc",
+					Object[].class);
+			lista = query.getResultList();
+		} finally {
+			session.close();
+		}
+		return lista;
+	}
+
+	
+	
 }

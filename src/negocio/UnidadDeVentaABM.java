@@ -6,6 +6,9 @@ import dao.UnidadDeVentaDao;
 import datos.FoodTruck;
 import datos.PuestoDesarmable;
 import datos.UnidadDeVenta;
+import datos.Personal;
+
+
 
 public class UnidadDeVentaABM {
 
@@ -63,4 +66,23 @@ public class UnidadDeVentaABM {
 		}
 		dao.eliminar(u);
 	}
+	
+	
+	public void asignarPersonal(String codigo, Personal p) throws Exception {
+		if (p == null) {
+			throw new Exception("El personal a asignar no puede ser nulo");
+		}
+		UnidadDeVenta u = dao.traerPorCodigo(codigo);
+		if (u == null) {
+			throw new Exception("No existe una unidad de venta con el codigo " + codigo);
+		}
+		dao.asignarPersonal(u.getId(), p);
+	}
+
+	public List<Object[]> traerCocinerosDeFoodTrucksConElectricidad() {
+		return dao.traerCocinerosDeFoodTrucksConElectricidad();
+	}
+
+	
+	
 }
