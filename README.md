@@ -6,10 +6,10 @@
 
 | Nombre y Apellido | Usuario GitHub |
 |---|---|
-| _completar_ | _completar_ |
-| _completar_ | _completar_ |
-| _completar_ | _completar_ |
-| _completar_ | _completar_ |
+| Agustín Dzevecka | adzeveck |
+| Bautista Nuñez | BautistaANun |
+| Santiago Mansilla | santiagomansilla |
+| Nahuel Palucito | Paluso |
 
 ## Cómo trabajamos
 
