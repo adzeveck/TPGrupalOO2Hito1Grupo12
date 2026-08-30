@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="datos.DetallePedido" table="detalle_pedido">
+        <id name="idDetalle" column="idDetalle">
+            <generator class="identity"/>
+        </id>
+        <property name="cantidad" column="cantidad" type="int" not-null="true"/>
+        <many-to-one name="pedido" class="datos.Pedido" column="idPedido" not-null="true"/>
+        <many-to-one name="plato" class="datos.Plato" column="idPlato" not-null="true"/>
+    </class>
+</hibernate-mapping>
