@@ -17,6 +17,17 @@
 		     setean el festival. Cuando lo hagan, se puede pasar a not-null="true". -->
 		<many-to-one name="festival" class="datos.Festival" column="idFestival" />
 
+		<!-- El responsable a cargo: UN Personal. La FK va en esta tabla.
+		     Nullable, igual que festival: el alta todavia no lo pide. -->
+		<many-to-one name="responsable" class="datos.Personal" column="idResponsable" />
+
+		<!-- El staff asignado a la unidad. Relacion unidireccional:
+		     la FK idUnidad va en la tabla personal. -->
+		<bag name="lstPersonal" cascade="all" lazy="false">
+			<key column="idUnidad" />
+			<one-to-many class="datos.Personal" />
+		</bag>
+
 		<joined-subclass name="datos.FoodTruck" table="food_truck">
 			<key column="idUnidad" />
 			<property name="patente" column="patente" type="string" />
