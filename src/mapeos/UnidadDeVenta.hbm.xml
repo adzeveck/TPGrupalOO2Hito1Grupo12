@@ -13,6 +13,10 @@
 		<property name="superficie" column="superficie" type="double" />
 		<property name="codigo"     column="codigo"     type="string" />
 
+		<!-- Nullable por ahora: todavia no todos los flujos de alta de UnidadDeVenta
+		     setean el festival. Cuando lo hagan, se puede pasar a not-null="true". -->
+		<many-to-one name="festival" class="datos.Festival" column="idFestival" />
+
 		<joined-subclass name="datos.FoodTruck" table="food_truck">
 			<key column="idUnidad" />
 			<property name="patente" column="patente" type="string" />
