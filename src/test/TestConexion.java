@@ -1,7 +1,6 @@
 package test;
 
 import org.hibernate.Session;
-
 import dao.HibernateUtil;
 
 public class TestConexion {
