@@ -91,7 +91,7 @@ public class PersonalDao {
 		Personal personal = null;
 		try {
 		iniciaOperacion();
-		personal = (Personal) session.createQuery("from Personal p where c.dni= :dni").setParameter("dni", dni).uniqueResult();
+		personal = (Personal) session.createQuery("from Personal p where p.dni= :dni").setParameter("dni", dni).uniqueResult();
 		// En este caso :dni es un marcador de posición para el parámetro.
 		// Al utilizar el método setParameter para asignar el valor del parámetro dni esto ayuda a prevenir la inyección de SQL.
 		} finally {

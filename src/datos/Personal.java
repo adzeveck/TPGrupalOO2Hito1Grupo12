@@ -77,8 +77,21 @@ public abstract class Personal {
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
 	
-	public boolean equals (Personal personal) {
-		return this.getDni().equalsIgnoreCase(personal.getDni());
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Personal)) {
+			return false;
+		}
+		Personal otro = (Personal) obj;
+		return dni != null && dni.equalsIgnoreCase(otro.dni);
+	}
+
+	@Override
+	public int hashCode() {
+		return dni == null ? 0 : dni.toLowerCase().hashCode();
 	}
 	
 	//public abstract double calcularSueldo(Costo costo); 
