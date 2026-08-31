@@ -2,7 +2,9 @@ package negocio;
 
 import java.util.List;
 
+
 import dao.UnidadDeVentaDao;
+import datos.Festival;
 import datos.FoodTruck;
 import datos.PuestoDesarmable;
 import datos.UnidadDeVenta;
@@ -14,17 +16,17 @@ public class UnidadDeVentaABM {
 
 	UnidadDeVentaDao dao = new UnidadDeVentaDao();
 
-	public int agregarFoodTruck(String nombre, double superficie, String codigo, String patente,
+	public int agregarFoodTruck(String nombre, double superficie, String codigo,Festival festival, String patente,
 			boolean requiereElectricidad) throws Exception {
 		validarCodigo(codigo);
-		FoodTruck ft = new FoodTruck(nombre, superficie, codigo, patente, requiereElectricidad);
+		FoodTruck ft = new FoodTruck(nombre, superficie, codigo,festival, patente, requiereElectricidad);
 		return dao.agregar(ft);
 	}
 
-	public int agregarPuestoDesarmable(String nombre, double superficie, String codigo, int cantCarpas,
+	public int agregarPuestoDesarmable(String nombre, double superficie, String codigo,Festival festival, int cantCarpas,
 			int tiempoMontaje) throws Exception {
 		validarCodigo(codigo);
-		PuestoDesarmable pd = new PuestoDesarmable(nombre, superficie, codigo, cantCarpas, tiempoMontaje);
+		PuestoDesarmable pd = new PuestoDesarmable(nombre, superficie, codigo,festival, cantCarpas, tiempoMontaje);
 		return dao.agregar(pd);
 	}
 

@@ -1,7 +1,7 @@
 package datos;
 
 import java.time.LocalDate;
-//import java.util.List;
+import java.util.Set;
 
 
 public class Festival {
@@ -16,7 +16,7 @@ public class Festival {
 	private Double costoMontaje;
 	private Double sueldoBase;
 	private Double valorAnioAntiguedad;
-	//private List<UnidadDeVenta> lstUnidades;
+	private Set<UnidadDeVenta> UnidadDeVenta;
 
 	public Festival() {}
 	
@@ -116,6 +116,19 @@ public class Festival {
 
 	public void setValorAnioAntiguedad(Double valorAnioAntiguedad) {
 		this.valorAnioAntiguedad = valorAnioAntiguedad;
+	}
+
+
+	
+
+
+	public Set<UnidadDeVenta> getUnidadDeVenta() {
+		return UnidadDeVenta;
+	}
+
+
+	public void setUnidadDeVenta(Set<UnidadDeVenta> unidadDeVenta) {
+		UnidadDeVenta = unidadDeVenta;
 	}
 
 

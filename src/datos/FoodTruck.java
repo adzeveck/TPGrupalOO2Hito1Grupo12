@@ -8,9 +8,9 @@ public class FoodTruck extends UnidadDeVenta {
 	public FoodTruck() {
 	}
 
-	public FoodTruck(String nombre, double superficie, String codigo, String patente,
+	public FoodTruck(String nombre, double superficie, String codigo,Festival festival, String patente,
 			boolean requiereElectricidad) {
-		super(nombre, superficie, codigo);
+		super(nombre, superficie, codigo,festival);
 		this.patente = patente;
 		this.requiereElectricidad = requiereElectricidad;
 	}

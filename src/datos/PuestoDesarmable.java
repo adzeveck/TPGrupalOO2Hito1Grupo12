@@ -8,8 +8,8 @@ public class PuestoDesarmable extends UnidadDeVenta {
 	public PuestoDesarmable() {
 	}
 
-	public PuestoDesarmable(String nombre, double superficie, String codigo, int cantCarpas, int tiempoMontaje) {
-		super(nombre, superficie, codigo);
+	public PuestoDesarmable(String nombre, double superficie, String codigo,Festival festival, int cantCarpas, int tiempoMontaje) {
+		super(nombre, superficie, codigo, festival);
 		this.cantCarpas = cantCarpas;
 		this.tiempoMontaje = tiempoMontaje;
 	}
