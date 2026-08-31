@@ -109,14 +109,13 @@ public class UnidadDeVentaDao {
 		return lista;
 	}
 	
-	// Toda la operacion ocurre dentro de una misma sesion a proposito.
-	// Si trajera la unidad con traer() y le agregara el personal afuera, la
-	// coleccion estaria lazy sobre un objeto detached y saltaria
-	// LazyInitializationException.
-	public void asignarPersonal(int idUnidad, Personal p) {
+	// Recibe ids y no entidades a proposito: asi la unidad y el personal se
+		// cargan en la misma sesion. 
+	public void asignarPersonal(int idUnidad, int idPersonal) {
 		try {
 			iniciaOperacion();
 			UnidadDeVenta u = session.get(UnidadDeVenta.class, idUnidad);
+			Personal p = session.get(Personal.class, idPersonal);
 			u.agregarPersonal(p);
 			tx.commit();
 		} catch (HibernateException he) {

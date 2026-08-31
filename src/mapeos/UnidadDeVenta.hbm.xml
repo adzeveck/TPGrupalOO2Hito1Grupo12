@@ -20,10 +20,11 @@
 		<!-- El responsable a cargo: UN Personal. La FK va en esta tabla.
 		     Nullable, igual que festival: el alta todavia no lo pide. -->
 		<many-to-one name="responsable" class="datos.Personal" column="idResponsable" />
-
-		<!-- El staff asignado a la unidad. Relacion unidireccional:
-		     la FK idUnidad va en la tabla personal. -->
-		<bag name="lstPersonal" cascade="all" lazy="false">
+	
+		
+		<!-- Sin cascade: Personal es una entidad independiente con su propio ABM.
+		     El alta pasa por PersonalABM (que valida DNI unico), no por aca.-->
+		<bag name="lstPersonal" lazy="false">
 			<key column="idUnidad" />
 			<one-to-many class="datos.Personal" />
 		</bag>

@@ -6,8 +6,10 @@ import java.util.List;
 import datos.Cajero;
 import datos.Cocinero;
 import datos.Festival;
+import datos.Personal;
 import datos.UnidadDeVenta;
 import negocio.FestivalABM;
+import negocio.PersonalABM;
 import negocio.UnidadDeVentaABM;
 
 public class TestUnidadDeVenta {
@@ -57,19 +59,25 @@ public class TestUnidadDeVenta {
 			System.out.println("No se pudo asociar el festival: " + e.getMessage());
 		}
 
-		// --- STAFF: personal asignado a cada unidad ---
+		// --- STAFF: el alta de Personal pasa por PersonalABM, que valida DNI unico.
+		// Aca solo se asignan a la unidad. ---
 		try {
 			UnidadDeVenta ft = abm.traerPorCodigo("FT00000001");
 			if (ft != null && ft.getLstPersonal().isEmpty()) {
-				abm.asignarPersonal("FT00000001", new Cocinero("Ana", "Gomez", "30111222",
-						LocalDate.of(1985, 4, 12), LocalDate.of(2020, 3, 1), "Parrilla", 15000));
-				abm.asignarPersonal("FT00000001", new Cocinero("Luis", "Perez", "28999111",
-						LocalDate.of(1982, 9, 5), LocalDate.of(2019, 7, 15), "Pastas", 12000));
-				abm.asignarPersonal("FT00000001", new Cajero("Marta", "Diaz", "33444555",
-						LocalDate.of(1990, 1, 20), LocalDate.of(2021, 6, 1), "Manana"));
-				abm.asignarPersonal("PD00000001", new Cocinero("Jose", "Ruiz", "27000333",
-						LocalDate.of(1980, 11, 2), LocalDate.of(2018, 2, 10), "Empanadas", 11000));
-				System.out.println("\nStaff asignado.");
+				int idAna = altaOReutiliza(new Cocinero("Ana", "Gomez", "30111222", LocalDate.of(1985, 4, 12),
+						LocalDate.of(2020, 3, 1), "Parrilla", 15000));
+				int idLuis = altaOReutiliza(new Cocinero("Luis", "Perez", "28999111", LocalDate.of(1982, 9, 5),
+						LocalDate.of(2019, 7, 15), "Pastas", 12000));
+				int idMarta = altaOReutiliza(new Cajero("Marta", "Diaz", "33444555", LocalDate.of(1990, 1, 20),
+						LocalDate.of(2021, 6, 1), "Manana"));
+				int idJose = altaOReutiliza(new Cocinero("Jose", "Ruiz", "27000333", LocalDate.of(1980, 11, 2),
+						LocalDate.of(2018, 2, 10), "Empanadas", 11000));
+
+				abm.asignarPersonal("FT00000001", idAna);
+				abm.asignarPersonal("FT00000001", idLuis);
+				abm.asignarPersonal("FT00000001", idMarta);
+				abm.asignarPersonal("PD00000001", idJose);
+				System.out.println("\nStaff dado de alta por PersonalABM y asignado.");
 			} else {
 				System.out.println("\nEl staff ya estaba asignado, no se duplica.");
 			}
@@ -93,11 +101,23 @@ public class TestUnidadDeVenta {
 		List<Object[]> filas = abm.traerCocinerosDeFoodTrucksConElectricidad();
 
 		System.out.println("\n--- CASO DE USO: cocineros en food trucks con conexion electrica ---");
-		System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n",
-				"FESTIVAL", "UNIDAD", "PATENTE", "COCINERO", "ESPECIALIDAD");
+		System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n", "FESTIVAL", "UNIDAD", "PATENTE", "COCINERO",
+				"ESPECIALIDAD");
 		for (Object[] f : filas) {
-			System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n",
-					f[0], f[1], f[2], f[3] + ", " + f[4], f[5]);
+			System.out.printf("%-20s | %-20s | %-9s | %-20s | %s%n", f[0], f[1], f[2], f[3] + ", " + f[4], f[5]);
 		}
 	}
+
+	// PersonalABM.agregar lanza si el DNI ya existe, asi que el test reusa
+	// el que ya este cargado. Mantiene el test repetible.
+	private static int altaOReutiliza(Personal p) {
+		PersonalABM personalAbm = PersonalABM.getInstance();
+		Personal existente = personalAbm.traer(p.getDni());
+		if (existente != null) {
+			return existente.getId();
+		}
+
+		return personalAbm.agregar(p);
+	}
+
 }
