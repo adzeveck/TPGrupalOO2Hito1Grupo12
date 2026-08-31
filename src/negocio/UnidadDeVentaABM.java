@@ -68,16 +68,19 @@ public class UnidadDeVentaABM {
 	}
 	
 	
-	public void asignarPersonal(String codigo, Personal p) throws Exception {
-		if (p == null) {
-			throw new Exception("El personal a asignar no puede ser nulo");
-		}
+	public void asignarPersonal(String codigo, int idPersonal) throws Exception {
 		UnidadDeVenta u = dao.traerPorCodigo(codigo);
 		if (u == null) {
 			throw new Exception("No existe una unidad de venta con el codigo " + codigo);
 		}
-		dao.asignarPersonal(u.getId(), p);
+		// El alta de Personal es responsabilidad de PersonalABM. Aca solo se
+		// asigna uno que ya existe.
+		if (PersonalABM.getInstance().traer(idPersonal) == null) {
+			throw new Exception("No existe el personal con id " + idPersonal);
+		}
+		dao.asignarPersonal(u.getId(), idPersonal);
 	}
+
 
 	public List<Object[]> traerCocinerosDeFoodTrucksConElectricidad() {
 		return dao.traerCocinerosDeFoodTrucksConElectricidad();
