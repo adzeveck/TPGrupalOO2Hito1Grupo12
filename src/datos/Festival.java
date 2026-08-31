@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Festival {
 
-	private long idFestival;
+	private int idFestival;
 	private String nombre;
 	private String temporada;
 	private LocalDate fechaInicio;
@@ -40,7 +40,7 @@ public class Festival {
 	public long getIdFestival() {
 		return idFestival;
 	}
-	protected void setIdFestival(long idFestival) {
+	protected void setIdFestival(int idFestival) {
 		this.idFestival = idFestival;
 	}
 	public String getNombre() {

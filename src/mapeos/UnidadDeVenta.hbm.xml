@@ -15,7 +15,8 @@
 
 		<!-- Nullable por ahora: todavia no todos los flujos de alta de UnidadDeVenta
 		     setean el festival. Cuando lo hagan, se puede pasar a not-null="true". -->
-		<many-to-one name="festival" class="datos.Festival" column="idFestival" />
+		<many-to-one name="festival" class="datos.Festival" column="idFestival" not-null="true" />
+		
 
 		<!-- El responsable a cargo: UN Personal. La FK va en esta tabla.
 		     Nullable, igual que festival: el alta todavia no lo pide. -->
