@@ -2,13 +2,12 @@ package datos;
 
 import java.time.LocalDate;
 
-//import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
 
 public abstract class Personal {
-	protected int id;//No hace falta aclarar que es idPersonal?
+	protected int id;
 	protected String nombre;
 	protected String apellido;
-	protected String dni;//No debería ser long el tipo de dato??
+	protected String dni;
 	protected LocalDate fechaNacimiento;
 	protected LocalDate fechaIngreso;
 	

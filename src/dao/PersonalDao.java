@@ -1,30 +1,16 @@
 package dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import datos.Personal;
 
 public class PersonalDao {
 
 	private static Session session;
 	private Transaction tx;
-	private static PersonalDao instancia=null;
-	
-	protected PersonalDao() {
-	}
-	
-	public static PersonalDao getInstance() {
-		if(instancia==null) {
-			instancia = new PersonalDao();
-		}
-	return instancia;
-	}
-	
 
 	private void iniciaOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -36,11 +22,11 @@ public class PersonalDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 	
-	public int agregar(Personal personal) {
+	public int agregar(Personal objeto) {
 		int id = 0;
 		try {
 			iniciaOperacion();
-			id = Integer.parseInt(session.save(personal).toString());
+			id = Integer.parseInt(session.save(objeto).toString());
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
@@ -74,8 +60,6 @@ public class PersonalDao {
 		}
 	}
 	
-	//****REVISAR****
-	// EN GUIA 3 UTILIZABA  TRAER POR ID COMO .uniqueResult()
 	public Personal traer(int id) {
 		Personal objeto = null;
 		try {
@@ -91,20 +75,24 @@ public class PersonalDao {
 		Personal personal = null;
 		try {
 		iniciaOperacion();
-		personal = (Personal) session.createQuery("from Personal p where p.dni= :dni").setParameter("dni", dni).uniqueResult();
-		// En este caso :dni es un marcador de posición para el parámetro.
-		// Al utilizar el método setParameter para asignar el valor del parámetro dni esto ayuda a prevenir la inyección de SQL.
+		personal = (Personal) session
+				.createQuery("from Personal p where p.dni= :dni")
+				.setParameter("dni", dni)
+				.uniqueResult();
+		
 		} finally {
 		session.close();
 		}
 		return personal;
 		}
 	
-	public List<Personal> traer() throws HibernateException {
+	public List<Personal> traer(){
 		List<Personal> lista = new ArrayList<Personal>();
 		try {
 			iniciaOperacion();
-			lista = session.createQuery("from Personal", Personal.class).list();
+			lista = session
+					.createQuery("from Personal", Personal.class)
+					.list();
 		} finally {
 			session.close();
 		}

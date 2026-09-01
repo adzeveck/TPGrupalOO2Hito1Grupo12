@@ -1,53 +1,59 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 import dao.PersonalDao;
+import datos.Cajero;
+import datos.Cocinero;
 import datos.Personal;
 
 public class PersonalABM {
 	
-	private static PersonalABM instancia = null;
-	protected PersonalABM() {
-	}
-	public static PersonalABM getInstance() {
-	if (instancia == null)
-	instancia = new PersonalABM();
-	return instancia;
-	}
+	private PersonalDao dao = new PersonalDao();
 	
+	public int agregarCocinero(String nombre, String apellido, String dni,LocalDate fechaNacimiento,
+			LocalDate fechaIngreso,String especialidad, double plusCategoria) {
+		Cocinero cocinero = new Cocinero(nombre,apellido,dni,fechaNacimiento,fechaIngreso,especialidad,plusCategoria);
+		return dao.agregar(cocinero);
+	}
+	public int agregarCajero(String nombre, String apellido, String dni,LocalDate fechaNacimiento,
+			LocalDate fechaIngreso,String turno) {
+		Cajero cajero = new Cajero(nombre,apellido,dni,fechaNacimiento,fechaIngreso,turno);
+		return dao.agregar(cajero);
+	}
 	public Personal traer(int id) {
-        return PersonalDao.getInstance().traer(id);
+        return dao.traer(id);
     }
 
     public Personal traer(String dni) {
-        return PersonalDao.getInstance().traer(dni);
+        return dao.traer(dni);
     }
 
-    public int agregar(Personal personal) {
-        Personal p = PersonalDao.getInstance().traer(personal.getDni());
+    public int agregar(Personal personal) throws Exception {
+        Personal p =dao.traer(personal.getDni());
         if (p != null) {
-            throw new RuntimeException("Ya existe un Personal con ese DNI");
+            throw new Exception("Ya existe un Personal con ese DNI");
         }
-        return PersonalDao.getInstance().agregar(personal);
+        return dao.agregar(personal);
     }
 
-    public void modificar(Personal personal) {
-        Personal p = PersonalDao.getInstance().traer(personal.getDni());
+    public void modificar(Personal personal) throws Exception {
+        Personal p = dao.traer(personal.getDni());
         if (p != null && p.getId() != personal.getId()) {
-            throw new RuntimeException("Ya existe otro Personal con ese DNI");
+            throw new Exception("Ya existe otro Personal con ese DNI");
         }
-        PersonalDao.getInstance().actualizar(personal);
+        dao.actualizar(personal);
     }
 
-    public void eliminar(int id) {
-        Personal p = PersonalDao.getInstance().traer(id);
+    public void eliminar(int id) throws Exception {
+        Personal p = dao.traer(id);
         if (p == null) {
-            throw new RuntimeException("El Personal no existe");
+            throw new Exception("El Personal no existe");
         }
-        PersonalDao.getInstance().eliminar(p);
+        dao.eliminar(p);
     }
 
     public List<Personal> traer() {
-        return PersonalDao.getInstance().traer();
+        return dao.traer();
     }
 }

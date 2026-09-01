@@ -110,8 +110,8 @@ public class TestUnidadDeVenta {
 
 	// PersonalABM.agregar lanza si el DNI ya existe, asi que el test reusa
 	// el que ya este cargado. Mantiene el test repetible.
-	private static int altaOReutiliza(Personal p) {
-		PersonalABM personalAbm = PersonalABM.getInstance();
+	private static int altaOReutiliza(Personal p) throws Exception {
+		PersonalABM personalAbm = new PersonalABM();
 		Personal existente = personalAbm.traer(p.getDni());
 		if (existente != null) {
 			return existente.getId();
