@@ -1,7 +1,7 @@
 package datos;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Set;
 
 public abstract class UnidadDeVenta {
 
@@ -11,7 +11,7 @@ public abstract class UnidadDeVenta {
 	protected String codigo;
 	protected Festival festival;
 	protected Personal responsable;
-	protected List<Personal> lstPersonal = new ArrayList<Personal>();
+	protected Set<Personal> lstPersonal; //
 
 	public UnidadDeVenta() {
 
@@ -72,11 +72,12 @@ public abstract class UnidadDeVenta {
 		this.responsable = responsable;
 	}
 
-	public List<Personal> getLstPersonal() {
+
+	public Set<Personal> getLstPersonal() {
 		return lstPersonal;
 	}
 
-	public void setLstPersonal(List<Personal> lstPersonal) {
+	public void setLstPersonal(Set<Personal> lstPersonal) {
 		this.lstPersonal = lstPersonal;
 	}
 

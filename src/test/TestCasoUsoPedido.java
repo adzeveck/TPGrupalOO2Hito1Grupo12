@@ -21,7 +21,7 @@ public class TestCasoUsoPedido {
 		PedidoABM pedidoAbm = new PedidoABM();
 
 		// --- Alta de datos de prueba ---
-		long idFestival = festivalAbm.agregar("Feria de Otoño", "Otoño", LocalDate.now(), LocalDate.now().plusDays(3),
+		int idFestival = festivalAbm.agregar("Feria de Otoño", "Otoño", LocalDate.now(), LocalDate.now().plusDays(3),
 				1000.0, 500.0, 2000.0, 300000.0, 5000.0);
 		Festival festival = festivalAbm.traer(idFestival);
 
