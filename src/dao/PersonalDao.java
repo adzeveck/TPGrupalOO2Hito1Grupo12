@@ -1,6 +1,8 @@
 package dao;
 
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -8,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import datos.Cajero;
+
 import datos.Personal;
 
 public class PersonalDao {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	"https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
 	<class name="datos.UnidadDeVenta" table="unidad_de_venta">
@@ -22,13 +22,11 @@
 		<many-to-one name="responsable" class="datos.Personal" column="idResponsable" />
 	
 		
-		<!-- Sin cascade: Personal es una entidad independiente con su propio ABM.
-		     El alta pasa por PersonalABM (que valida DNI unico), no por aca.-->
-		<bag name="lstPersonal" lazy="false">
-			<key column="idUnidad" />
-			<one-to-many class="datos.Personal" />
-		</bag>
-
+		<set name="lstPersonal" lazy="false">
+    		<key column="idUnidad"/>
+   	 		<one-to-many class="datos.Personal"/>
+		</set>
+		
 		<joined-subclass name="datos.FoodTruck" table="food_truck">
 			<key column="idUnidad" />
 			<property name="patente" column="patente" type="string" />
