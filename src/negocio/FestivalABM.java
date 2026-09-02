@@ -2,6 +2,7 @@ package negocio;
 import java.time.LocalDate;
 import dao.FestivalDao;
 import datos.Festival;
+import datos.Pedido;
 
 public class FestivalABM {
 	
@@ -27,6 +28,10 @@ public class FestivalABM {
 	public void eliminar(int idFestival) {		
 		Festival f = dao.traer(idFestival);
 		dao.eliminar(f);
+	}
+	
+	public Festival traerFestivalYUnidadDeVenta(int idFestival) {
+		return dao.traerFestivalYUnidadDeVenta(idFestival);
 	}
 
 }

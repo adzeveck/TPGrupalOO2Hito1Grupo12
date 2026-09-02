@@ -91,5 +91,28 @@ public class FestivalDao {
 		}
 		return lista;
 	}
+	
+	public Festival traerFestivalYUnidadDeVenta(int idFestival) throws HibernateException {
+
+	    Festival objeto = null;
+
+	    try {
+	        iniciaOperacion();
+
+	        String hql = "select distinct f "
+	                   + "from Festival f "
+	                   + "inner join fetch f.lstUnidad u "
+	                   + "where f.idFestival = :idFestival";
+
+	        objeto = (Festival) session.createQuery(hql)
+	                .setParameter("idFestival", idFestival)
+	                .uniqueResult();
+
+	    } finally {
+	        session.close();
+	    }
+
+	    return objeto;
+	}
 
 }
