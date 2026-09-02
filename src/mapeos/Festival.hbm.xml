@@ -19,7 +19,7 @@
         <property name="sueldoBase" column="sueldoBase" type="double" not-null="true"/> 
         <property name="valorAnioAntiguedad" column="valorAnioAntiguedad" type="double" not-null="true"/>
         <set name="lstUnidad" table="unidad_de_venta" order-by="id asc" inverse="true" lazy="true" fetch="select">
-			<key column="idFestival" not-null="true"/>
+			<key column="idFestival"/>
 			<one-to-many class="datos.UnidadDeVenta"/>
 		</set>
     </class>

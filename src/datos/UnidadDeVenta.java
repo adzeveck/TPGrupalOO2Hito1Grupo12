@@ -1,6 +1,7 @@
 package datos;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class UnidadDeVenta {
@@ -11,7 +12,7 @@ public abstract class UnidadDeVenta {
 	protected String codigo;
 	protected Festival festival;
 	protected Personal responsable;
-	protected Set<Personal> lstPersonal; //
+	protected Set<Personal> lstPersonal =new HashSet<Personal>();
 
 	public UnidadDeVenta() {
 

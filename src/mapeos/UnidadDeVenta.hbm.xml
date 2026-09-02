@@ -22,14 +22,7 @@
 		<many-to-one name="responsable" class="datos.Personal" column="idResponsable" />
 	
 		
-		<!-- Sin cascade: Personal es una entidad independiente con su propio ABM.
-		     El alta pasa por PersonalABM (que valida DNI unico), no por aca.-->
-		<!--<bag name="lstPersonal" lazy="false">
-			<key column="idUnidad" />
-			<one-to-many class="datos.Personal" />
-		</bag>-->
-		
-		<set name="lstPersonal" cascade="all" lazy="false">
+		<set name="lstPersonal" lazy="false">
     		<key column="idUnidad"/>
    	 		<one-to-many class="datos.Personal"/>
 		</set>
