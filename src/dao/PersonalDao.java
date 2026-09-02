@@ -104,37 +104,57 @@ public class PersonalDao {
 	
 	// Personal por turno
 	public List<Cajero> listarPorTurno(String turno) {
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        return session
+		List<Cajero> lista = new ArrayList<Cajero>();
+	    try {
+	    	iniciaOperacion();
+	        lista = session
 	        		.createQuery("FROM Cajero WHERE turno = :turno", Cajero.class)
 	                .setParameter("turno", turno)
 	                .list();
+	    } finally {
+	    	session.close();
 	    }
+	    return lista;
 	}
 	
 	// Cantidad total de personal
 	public long contarPersonal() {
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        return session.createQuery("SELECT COUNT(p) FROM Personal p", Long.class)
+	    long total;
+		try{	    	
+	    	iniciaOperacion();
+	    	total= session
+	    			.createQuery("SELECT COUNT(p) FROM Personal p", Long.class)
 	                .uniqueResult();
+	    } finally {
+	    	session.close();
 	    }
+	    return total;
 	}
 	// Promedio de plusCategoria de los Cocineros
-	public double promedioPlusCocineros() {
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        return session.createQuery("SELECT AVG(c.plusCategoria) FROM Cocinero c", Double.class)
+	public Double promedioPlusCocineros() {
+	    double promedio;
+		try {
+	        promedio = session.createQuery("SELECT AVG(c.plusCategoria) FROM Cocinero c", Double.class)
 	                .uniqueResult();
+	    } finally {
+	    	session.close();
 	    }
+		return promedio;
 	}
 	
 	// Personal contratado en un rango de fechas
 	public List<Personal> buscarPorFechaIngreso(LocalDate desde, LocalDate hasta) {
-	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-	        return session.createQuery(
+	    List<Personal> personal = new ArrayList<Personal>();
+		try {
+	    	iniciaOperacion();
+	        personal = session.createQuery(
 	                "FROM Personal WHERE fechaIngreso BETWEEN :desde AND :hasta", Personal.class)
 	                .setParameter("desde", desde)
 	                .setParameter("hasta", hasta)
 	                .list();
+	    } finally {
+	    	session.close();
 	    }
+		return personal;
 	}
 }

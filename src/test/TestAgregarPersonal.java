@@ -43,7 +43,7 @@ public class TestAgregarPersonal {
 		System.out.println(abm.contarPersonal());
 		
 		//--- PROMEDIO PLUS POR CATEGORIA
-		System.out.println(abm.PromedioPlusCocinero());
+		System.out.println(abm.promedioPlusCocinero());
 		
 		
 	}

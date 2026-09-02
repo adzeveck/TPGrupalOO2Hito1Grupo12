@@ -65,7 +65,7 @@ public class PersonalABM {
     	return dao.contarPersonal();
     }
     
-    public double PromedioPlusCocinero() {
+    public double promedioPlusCocinero() {
     	return dao.promedioPlusCocineros();
     }
     
