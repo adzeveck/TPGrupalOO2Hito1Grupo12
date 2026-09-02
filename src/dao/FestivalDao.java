@@ -1,17 +1,14 @@
 package dao;
 
 import java.util.ArrayList;
-
-
-
-
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
 import datos.Festival;
+
 
 public class FestivalDao {
 	
@@ -91,5 +88,29 @@ public class FestivalDao {
 		}
 		return lista;
 	}
+	
+	
+	public Festival traerFestivalYUnidadDeVenta(int idFestival) throws HibernateException {
 
+	    Festival objeto = null;
+
+	    try {
+	        iniciaOperacion();
+
+	        String hql = "select distinct f "
+	                   + "from Festival f "
+	                   + "inner join fetch f.lstUnidad u "
+	                   + "where f.idFestival = :idFestival";
+
+	        objeto = (Festival) session.createQuery(hql)
+	                .setParameter("idFestival", idFestival)
+	                .uniqueResult();
+
+	    } finally {
+	        session.close();
+	    }
+
+	    return objeto;
+	}
+	
 }

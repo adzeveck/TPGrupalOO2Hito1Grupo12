@@ -29,4 +29,9 @@ public class FestivalABM {
 		dao.eliminar(f);
 	}
 
+	public Festival traerFestivalYUnidadDeVenta(int idFestival) {
+		// TODO Auto-generated method stub
+		return dao.traerFestivalYUnidadDeVenta(idFestival);
+	}
+	
 }
