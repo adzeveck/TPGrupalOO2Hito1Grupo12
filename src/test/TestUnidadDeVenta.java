@@ -1,6 +1,7 @@
 package test;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import datos.Cajero;
@@ -38,7 +39,7 @@ public class TestUnidadDeVenta {
 
 		// --- RELACION CON FESTIVAL: ambas unidades pertenecen al mismo festival ---
 		try {
-			long idFestival = festivalAbm.agregar("Feria de Primavera", "Primavera", LocalDate.now(),
+			int idFestival = festivalAbm.agregar("Feria de Primavera", "Primavera", LocalDate.now(),
 					LocalDate.now().plusDays(2), 800.0, 400.0, 1500.0, 250000.0, 4000.0);
 			Festival festival = festivalAbm.traer(idFestival);
 

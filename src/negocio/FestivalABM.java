@@ -9,7 +9,7 @@ public class FestivalABM {
 	
 
 
-	public Festival traer(long idFestival) {
+	public Festival traer(int idFestival) {
 		return dao.traer(idFestival);
 	}
 
@@ -24,8 +24,8 @@ public class FestivalABM {
 		dao.actualizar(f);
 	}
 
-	public void eliminar(long idCliente) {		
-		Festival f = dao.traer(idCliente);
+	public void eliminar(int idFestival) {		
+		Festival f = dao.traer(idFestival);
 		dao.eliminar(f);
 	}
 

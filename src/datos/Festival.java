@@ -1,12 +1,14 @@
 package datos;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 //import java.util.List;
 
 
 public class Festival {
 
-	private long idFestival;
+	private int idFestival;
 	private String nombre;
 	private String temporada;
 	private LocalDate fechaInicio;
@@ -16,7 +18,7 @@ public class Festival {
 	private Double costoMontaje;
 	private Double sueldoBase;
 	private Double valorAnioAntiguedad;
-	//private List<UnidadDeVenta> lstUnidades;
+	private Set<UnidadDeVenta> lstUnidad = new HashSet<UnidadDeVenta>();
 
 	public Festival() {}
 	
@@ -37,10 +39,10 @@ public class Festival {
 	}
 
 
-	public long getIdFestival() {
+	public int getIdFestival() {
 		return idFestival;
 	}
-	protected void setIdFestival(long idFestival) {
+	protected void setIdFestival(int idFestival) {
 		this.idFestival = idFestival;
 	}
 	public String getNombre() {
@@ -114,8 +116,23 @@ public class Festival {
 	}
 
 
+	
+
+
 	public void setValorAnioAntiguedad(Double valorAnioAntiguedad) {
 		this.valorAnioAntiguedad = valorAnioAntiguedad;
+	}
+
+
+	
+
+	public Set<UnidadDeVenta> getLstUnidad() {
+		return lstUnidad;
+	}
+
+
+	public void setLstUnidad(Set<UnidadDeVenta> lstUnidad) {
+		this.lstUnidad = lstUnidad;
 	}
 
 

@@ -42,6 +42,7 @@ public class FestivalDao {
 		return id;
 	}
 
+	
 	public void actualizar(Festival objeto) {
 		try {
 			iniciaOperacion();
@@ -66,7 +67,7 @@ public class FestivalDao {
 		}
 	}
 
-	public Festival traer(long idFestival) {
+	public Festival traer(int idFestival) {
 		Festival objeto = null;
 		try {
 			iniciaOperacion();
