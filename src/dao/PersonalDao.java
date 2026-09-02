@@ -1,10 +1,13 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import datos.Cajero;
 import datos.Personal;
 
 public class PersonalDao {
@@ -97,5 +100,41 @@ public class PersonalDao {
 			session.close();
 		}
 		return lista;
+	}
+	
+	// Personal por turno
+	public List<Cajero> listarPorTurno(String turno) {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session
+	        		.createQuery("FROM Cajero WHERE turno = :turno", Cajero.class)
+	                .setParameter("turno", turno)
+	                .list();
+	    }
+	}
+	
+	// Cantidad total de personal
+	public long contarPersonal() {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery("SELECT COUNT(p) FROM Personal p", Long.class)
+	                .uniqueResult();
+	    }
+	}
+	// Promedio de plusCategoria de los Cocineros
+	public double promedioPlusCocineros() {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery("SELECT AVG(c.plusCategoria) FROM Cocinero c", Double.class)
+	                .uniqueResult();
+	    }
+	}
+	
+	// Personal contratado en un rango de fechas
+	public List<Personal> buscarPorFechaIngreso(LocalDate desde, LocalDate hasta) {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery(
+	                "FROM Personal WHERE fechaIngreso BETWEEN :desde AND :hasta", Personal.class)
+	                .setParameter("desde", desde)
+	                .setParameter("hasta", hasta)
+	                .list();
+	    }
 	}
 }

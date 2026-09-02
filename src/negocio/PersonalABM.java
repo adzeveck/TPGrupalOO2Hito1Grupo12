@@ -56,4 +56,21 @@ public class PersonalABM {
     public List<Personal> traer() {
         return dao.traer();
     }
+    
+    public List<Cajero> traerCajerosPorTurno(String turno) {
+        return dao.listarPorTurno(turno);
+    }
+    
+    public long contarPersonal() {
+    	return dao.contarPersonal();
+    }
+    
+    public double PromedioPlusCocinero() {
+    	return dao.promedioPlusCocineros();
+    }
+    
+    public List<Personal> buscarPorFechaDeIngreso(LocalDate desde,LocalDate hasta){
+    	return dao.buscarPorFechaIngreso(desde, hasta);
+    }
+    
 }
