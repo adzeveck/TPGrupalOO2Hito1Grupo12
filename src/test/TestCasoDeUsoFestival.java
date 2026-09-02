@@ -22,7 +22,7 @@ public class TestCasoDeUsoFestival {
 				
 				try {
 				
-					int idUnidad = unidadAbm.agregarFoodTruck("El vikingo", 10.3, "AA00000003", "AA223AC", true);
+					int idUnidad = unidadAbm.agregarFoodTruck("El vikingo", 10.3, "AA00000001", "AA223AC", true);
 					UnidadDeVenta unidad = unidadAbm.traer(idUnidad);
 					unidad.setFestival(festival);
 					unidadAbm.modificar(unidad);

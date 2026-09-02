@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 
 import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -99,20 +101,18 @@ public class FestivalDao {
 	    try {
 	        iniciaOperacion();
 
-	        String hql = "select distinct f "
-	                   + "from Festival f "
+	        String hql = "select distinct f from Festival f "
 	                   + "inner join fetch f.lstUnidad u "
 	                   + "where f.idFestival = :idFestival";
 
-	        objeto = (Festival) session.createQuery(hql)
-	                .setParameter("idFestival", idFestival)
-	                .uniqueResult();
-
+	        objeto = (Festival) session.createQuery(hql).setParameter("idFestival", idFestival).uniqueResult();
+	        Hibernate.initialize(objeto.getLstUnidad());
 	    } finally {
 	        session.close();
 	    }
 
 	    return objeto;
 	}
-
+	          
+     
 }
