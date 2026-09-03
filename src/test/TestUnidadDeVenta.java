@@ -8,9 +8,11 @@ import datos.Cajero;
 import datos.Cocinero;
 import datos.Festival;
 import datos.Personal;
+import datos.Plato;
 import datos.UnidadDeVenta;
 import negocio.FestivalABM;
 import negocio.PersonalABM;
+import negocio.PlatoABM;
 import negocio.UnidadDeVentaABM;
 
 public class TestUnidadDeVenta {
@@ -86,6 +88,23 @@ public class TestUnidadDeVenta {
 			System.out.println("No se pudo asignar el staff: " + e.getMessage());
 		}
 
+		// --- PLATOS: el alta de Plato pasa por UnidadDeVentaABM.agregarPlato
+		try {
+			if (idFoodTruck != -1) {
+				int idChoripan = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck,
+						new Plato("Choripan", 3500.0, 1200.0));
+				int idGaseosa = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck,
+						new Plato("Gaseosa", 1500.0, 500.0));
+
+				PlatoABM platoAbm = new PlatoABM();
+				System.out.println("\n--- Platos del Food Truck ---");
+				System.out.println(platoAbm.traer(idChoripan));
+				System.out.println(platoAbm.traer(idGaseosa));
+			}
+		} catch (Exception e) {
+			System.out.println("No se pudieron agregar los platos: " + e.getMessage());
+		}
+
 		// --- CONSULTA POLIMORFICA: pido la clase padre y traigo las dos hijas ---
 		List<UnidadDeVenta> unidades = abm.traer();
 
@@ -119,6 +138,19 @@ public class TestUnidadDeVenta {
 		}
 
 		return personalAbm.agregar(p);
+	}
+
+	// UnidadDeVentaABM.agregarPlato lanza si ya existe un plato con ese nombre
+	// EN ESA unidad, asi que el test reusa el que ya este cargado (mismo
+	// criterio que altaOReutiliza para Personal). Mantiene el test repetible.
+	private static int altaPlatoOReutiliza(UnidadDeVentaABM abm, String codigoUnidad, int idUnidad, Plato p)
+			throws Exception {
+		PlatoABM platoAbm = new PlatoABM();
+		Plato existente = platoAbm.traer(p.getNombre(), idUnidad);
+		if (existente != null) {
+			return existente.getIdPlato();
+		}
+		return abm.agregarPlato(codigoUnidad, p);
 	}
 
 }

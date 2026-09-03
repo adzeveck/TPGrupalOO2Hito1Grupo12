@@ -6,6 +6,7 @@ public class Plato {
 	private String nombre;
 	private double precio;
 	private double costo;
+	private UnidadDeVenta unidad;
 
 	public Plato() {
 	}
@@ -46,6 +47,15 @@ public class Plato {
 
 	public void setCosto(double costo) {
 		this.costo = costo;
+	}
+
+
+	public UnidadDeVenta getUnidad() {
+		return unidad;
+	}
+
+	public void setUnidad(UnidadDeVenta unidad) {
+		this.unidad = unidad;
 	}
 
 	@Override

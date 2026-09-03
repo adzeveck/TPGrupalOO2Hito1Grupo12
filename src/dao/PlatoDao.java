@@ -21,19 +21,6 @@ public class PlatoDao {
 		throw new HibernateException("ERROR en la capa de acceso a datos", he);
 	}
 
-	public int agregar(Plato objeto) {
-		int idPlato = 0;
-		try {
-			iniciaOperacion();
-			idPlato = Integer.parseInt(session.save(objeto).toString());
-			tx.commit();
-		} catch (HibernateException he) {
-			manejaExcepcion(he);
-		} finally {
-			session.close();
-		}
-		return idPlato;
-	}
 
 	public Plato traer(int idPlato) {
 		Plato objeto = null;
@@ -46,12 +33,15 @@ public class PlatoDao {
 		return objeto;
 	}
 
-	public Plato traer(String nombre) {
+	public Plato traer(String nombre, int idUnidad) {
 		Plato objeto = null;
 		try {
 			iniciaOperacion();
-			objeto = (Plato) session.createQuery("from Plato p where p.nombre=:nombre")
-						.setParameter("nombre", nombre).uniqueResult();
+			objeto = (Plato) session
+					.createQuery("from Plato p where p.nombre = :nombre and p.unidad.id = :idUnidad")
+					.setParameter("nombre", nombre)
+					.setParameter("idUnidad", idUnidad)
+					.uniqueResult();
 		} finally {
 			session.close();
 		}

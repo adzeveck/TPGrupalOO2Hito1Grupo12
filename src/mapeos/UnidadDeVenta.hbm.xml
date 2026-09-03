@@ -26,7 +26,12 @@
     		<key column="idUnidad"/>
    	 		<one-to-many class="datos.Personal"/>
 		</set>
-		
+
+		<set name="lstPlatos" inverse="true" cascade="all-delete-orphan" lazy="true">
+			<key column="idUnidad" not-null="true"/>
+			<one-to-many class="datos.Plato"/>
+		</set>
+
 		<joined-subclass name="datos.FoodTruck" table="food_truck">
 			<key column="idUnidad" />
 			<property name="patente" column="patente" type="string" />

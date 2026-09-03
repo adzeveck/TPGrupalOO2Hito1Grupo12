@@ -7,8 +7,13 @@
         <id name="idPlato" column="idPlato">
             <generator class="identity"/>
         </id>
-        <property name="nombre" column="nombre" type="string" not-null="true" unique="true"/>
+
+
+        <property name="nombre" column="nombre" type="string" not-null="true"/>
         <property name="precio" column="precio" type="double" not-null="true"/>
         <property name="costo" column="costo" type="double" not-null="true"/>
+
+        <many-to-one name="unidad" class="datos.UnidadDeVenta" column="idUnidad"
+                     not-null="true"/>
     </class>
 </hibernate-mapping>

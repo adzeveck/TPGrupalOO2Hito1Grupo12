@@ -13,10 +13,11 @@ public abstract class UnidadDeVenta {
 	protected Festival festival;
 	protected Personal responsable;
 	protected Set<Personal> lstPersonal =new HashSet<Personal>();
+	protected Set<Plato> lstPlatos = new HashSet<Plato>();
 
 	public UnidadDeVenta() {
 
-	}// Hibernate necesita el constructor vacio
+	}
 
 	public UnidadDeVenta(String nombre, double superficie, String codigo) {
 
@@ -84,6 +85,20 @@ public abstract class UnidadDeVenta {
 
 	public void agregarPersonal(Personal p) {
 		this.lstPersonal.add(p);
+	}
+
+	public Set<Plato> getLstPlatos() {
+		return lstPlatos;
+	}
+
+	public void setLstPlatos(Set<Plato> lstPlatos) {
+		this.lstPlatos = lstPlatos;
+	}
+
+
+	public void agregarPlato(Plato p) {
+		p.setUnidad(this);
+		this.lstPlatos.add(p);
 	}
 
 }
