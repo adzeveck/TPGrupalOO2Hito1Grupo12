@@ -90,19 +90,18 @@ public class UnidadDeVentaABM {
 	}
 
 
-	// Unico alta valida de un Plato: composicion de UnidadDeVenta. Valida que
-	// la unidad exista y que no haya ya un Plato con ese nombre en esa unidad
-	
-	public int agregarPlato(String codigo, Plato plato) throws Exception {
+	// Unico alta valida de un Plato: composicion de UnidadDeVenta
+	public int agregarPlato(String codigo, String nombre, double precio, double costo) throws Exception {
 		UnidadDeVenta u = dao.traerPorCodigo(codigo);
 		if (u == null) {
 			throw new Exception("No existe una unidad de venta con el codigo " + codigo);
 		}
 		PlatoABM platoAbm = new PlatoABM();
-		if (platoAbm.traer(plato.getNombre(), u.getId()) != null) {
+		if (platoAbm.traer(nombre, u.getId()) != null) {
 			throw new Exception(
-					"Ya existe un plato con el nombre " + plato.getNombre() + " en esta unidad de venta");
+					"Ya existe un plato con el nombre " + nombre + " en esta unidad de venta");
 		}
+		Plato plato = new Plato(nombre, precio, costo);
 		return dao.agregarPlato(u.getId(), plato);
 	}
 
