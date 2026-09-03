@@ -65,8 +65,8 @@ public class PersonalABM {
     	return dao.contarPersonal();
     }
     
-    public double promedioPlusCocinero() {
-    	return dao.promedioPlusCocineros();
+    public Double promedioPlusCocinero() {
+    	return dao.promedioPlusCocinero();
     }
     
     public List<Personal> buscarPorFechaDeIngreso(LocalDate desde,LocalDate hasta){

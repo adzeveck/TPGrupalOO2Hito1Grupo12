@@ -134,9 +134,10 @@ public class PersonalDao {
 	    return total;
 	}
 	// Promedio de plusCategoria de los Cocineros
-	public Double promedioPlusCocineros() {
+	public Double promedioPlusCocinero() {
 	    double promedio;
 		try {
+			iniciaOperacion();
 	        promedio = session.createQuery("SELECT AVG(c.plusCategoria) FROM Cocinero c", Double.class)
 	                .uniqueResult();
 	    } finally {
