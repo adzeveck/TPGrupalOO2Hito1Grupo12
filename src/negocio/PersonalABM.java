@@ -72,5 +72,10 @@ public class PersonalABM {
     public List<Personal> buscarPorFechaDeIngreso(LocalDate desde,LocalDate hasta){
     	return dao.buscarPorFechaIngreso(desde, hasta);
     }
-    
+    public List<Cajero> cajerosDeUnidadPorTurno(int idUnidad, String turno){
+    	return dao.cajerosDeUnidadPorTurno(idUnidad, turno);
+    }
+	public List<Personal> personalAntiguoDeUnidad(int idUnidad, int aniosMinimos) {
+		return dao.personalAntiguoDeUnidad(idUnidad, aniosMinimos);
+	}
 }
