@@ -155,10 +155,35 @@ public class PersonalDao {
 	                "FROM Personal WHERE fechaIngreso BETWEEN :desde AND :hasta", Personal.class)
 	                .setParameter("desde", desde)
 	                .setParameter("hasta", hasta)
-	                .list();
+	                .getResultList();
 	    } finally {
 	    	session.close();
 	    }
 		return personal;
+	}
+	// Cajeros de Unidad por Turno
+	public List<Cajero> cajerosDeUnidadPorTurno(int idUnidad, String turno) {
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery(
+	                "SELECT c FROM UnidadDeVenta u JOIN TREAT(u.personal AS Cajero) c " +
+	                "WHERE u.id = :idUnidad AND c.turno = :turno", Cajero.class)
+	                .setParameter("idUnidad", idUnidad)
+	                .setParameter("turno", turno)
+	                .getResultList();
+	    }
+	}
+	
+	
+	public List<Personal> personalAntiguoDeUnidad(int idUnidad, int aniosMinimos) {
+	    LocalDate fechaLimite = LocalDate.now().minusYears(aniosMinimos);
+	    try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        return session.createQuery(
+	                "SELECT p FROM UnidadDeVenta u JOIN u.personal p " +
+	                "WHERE u.id = :idUnidad AND p.fechaIngreso <= :fechaLimite " +
+	                "ORDER BY p.fechaIngreso ASC", Personal.class)
+	                .setParameter("idUnidad", idUnidad)
+	                .setParameter("fechaLimite", fechaLimite)
+	                .getResultList();
+	    }
 	}
 }
