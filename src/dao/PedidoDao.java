@@ -52,9 +52,7 @@ public class PedidoDao {
 		Pedido objeto = null;
 		try {
 			iniciaOperacion();
-			// unidad.festival se trae con left join fetch (no inner): festival es
-			// nullable en UnidadDeVenta por ahora, e inner join descartaria el
-			// Pedido entero si esa columna estuviera vacia.
+
 			String hql = "select distinct p from Pedido p "
 					+ "inner join fetch p.lstDetalle d "
 					+ "inner join fetch d.plato "
@@ -66,6 +64,28 @@ public class PedidoDao {
 			session.close();
 		}
 		return objeto;
+	}
+
+
+	// CASO DE USO: el nombre del plato mas vendido en todo un festival, sumando
+	// las ventas de TODAS sus unidades
+	public String traerPlatoEstrella(int idFestival) {
+		String nombre = null;
+		try {
+			iniciaOperacion();
+			String hql = "select d.plato.nombre "
+					+ "from DetallePedido d "
+					+ "where d.pedido.unidad.festival.idFestival = :idFestival "
+					+ "group by d.plato.nombre "
+					+ "order by sum(d.cantidad) desc";
+			nombre = (String) session.createQuery(hql)
+					.setParameter("idFestival", idFestival)
+					.setMaxResults(1)
+					.uniqueResult();
+		} finally {
+			session.close();
+		}
+		return nombre;
 	}
 
 }

@@ -28,13 +28,14 @@ public class TestCasoUsoPedido {
 		int idUnidad = unidadAbm.agregarFoodTruck("La Birra Truck", 12.5, "FT00000002", "AB123CD", true);
 		UnidadDeVenta unidad = unidadAbm.traer(idUnidad);
 
-		// La unidad queda asociada a su festival (Pedido ya no guarda el
-		// festival directo, se deriva por acá).
+		// La unidad queda asociada a su festival
 		unidad.setFestival(festival);
 		unidadAbm.modificar(unidad);
 
-		int idHamburguesa = platoAbm.agregar(new Plato("Hamburguesa", 8000.0, 3500.0));
-		int idPapas = platoAbm.agregar(new Plato("Papas fritas", 4000.0, 1200.0));
+		// El alta de Plato pasa por UnidadDeVentaABM: Plato es composicion de
+		// UnidadDeVenta
+		int idHamburguesa = unidadAbm.agregarPlato(unidad.getCodigo(), new Plato("Hamburguesa", 8000.0, 3500.0));
+		int idPapas = unidadAbm.agregarPlato(unidad.getCodigo(), new Plato("Papas fritas", 4000.0, 1200.0));
 
 		Plato hamburguesa = platoAbm.traer(idHamburguesa);
 		Plato papas = platoAbm.traer(idPapas);

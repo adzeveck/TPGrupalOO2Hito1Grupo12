@@ -10,6 +10,7 @@ import org.hibernate.query.Query;
 
 import datos.UnidadDeVenta;
 import datos.Personal;
+import datos.Plato;
 
 public class UnidadDeVentaDao {
 
@@ -123,6 +124,22 @@ public class UnidadDeVentaDao {
 		} finally {
 			session.close();
 		}
+	}
+
+	public int agregarPlato(int idUnidad, Plato plato) {
+		int idPlato = 0;
+		try {
+			iniciaOperacion();
+			UnidadDeVenta u = session.get(UnidadDeVenta.class, idUnidad);
+			u.agregarPlato(plato);
+			tx.commit();
+			idPlato = plato.getIdPlato();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+		} finally {
+			session.close();
+		}
+		return idPlato;
 	}
 
 	// CASO DE USO: cocineros asignados a los food trucks que requieren

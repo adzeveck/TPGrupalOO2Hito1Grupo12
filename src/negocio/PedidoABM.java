@@ -19,4 +19,8 @@ public class PedidoABM {
 		return dao.traerConDetalle(idPedido);
 	}
 
+	public String traerPlatoEstrella(int idFestival) {
+		return dao.traerPlatoEstrella(idFestival);
+	}
+
 }
