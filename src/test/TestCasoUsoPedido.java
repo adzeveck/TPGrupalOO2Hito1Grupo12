@@ -33,9 +33,9 @@ public class TestCasoUsoPedido {
 		unidadAbm.modificar(unidad);
 
 		// El alta de Plato pasa por UnidadDeVentaABM: Plato es composicion de
-		// UnidadDeVenta
-		int idHamburguesa = unidadAbm.agregarPlato(unidad.getCodigo(), new Plato("Hamburguesa", 8000.0, 3500.0));
-		int idPapas = unidadAbm.agregarPlato(unidad.getCodigo(), new Plato("Papas fritas", 4000.0, 1200.0));
+		// UnidadDeVenta. Se pasan los datos sueltos y el ABM construye el Plato.
+		int idHamburguesa = unidadAbm.agregarPlato(unidad.getCodigo(), "Hamburguesa", 8000.0, 3500.0);
+		int idPapas = unidadAbm.agregarPlato(unidad.getCodigo(), "Papas fritas", 4000.0, 1200.0);
 
 		Plato hamburguesa = platoAbm.traer(idHamburguesa);
 		Plato papas = platoAbm.traer(idPapas);

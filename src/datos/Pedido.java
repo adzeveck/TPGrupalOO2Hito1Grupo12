@@ -36,11 +36,6 @@ public class Pedido {
 		this.fecha = fecha;
 	}
 
-	// No hay campo "festival" a proposito: UnidadDeVenta ya sabe a que Festival
-	// pertenece (UnidadDeVenta.festival), asi que guardarlo tambien aca seria
-	// un dato redundante/derivable (pedido.getUnidad().getFestival()) con
-	// riesgo de quedar inconsistente. Decision confirmada con la catedra.
-
 	public UnidadDeVenta getUnidad() {
 		return unidad;
 	}
@@ -63,19 +58,10 @@ public class Pedido {
 		return lstDetalle.add(detalle);
 	}
 
-	// TODO: 
-	public double calcularRecaudacion() {
-		return 0.0;
-	}
-
-	// TODO: 
-	public double calcularCostoPlatos() {
-		return 0.0;
-	}
 
 	@Override
 	public String toString() {
-		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", unidad=" + unidad + ", lstDetalle="
-				+ lstDetalle + "]";
+		return "Pedido [idPedido=" + idPedido + ", fecha=" + fecha + ", unidad=" + unidad
+				 + "]";
 	}
 }

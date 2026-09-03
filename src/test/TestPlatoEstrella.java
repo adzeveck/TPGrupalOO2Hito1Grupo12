@@ -38,11 +38,11 @@ public class TestPlatoEstrella {
 		// --- Cada unidad tiene su propia "Hamburguesa" (Plato distinto, precio
 		// propio) mas un plato exclusivo. El caso de uso tiene que sumar las
 		// ventas entre unidades para dar con el plato estrella real. ---
-		int idHamburguesa1 = unidadAbm.agregarPlato(unidad1.getCodigo(), new Plato("Hamburguesa", 8000.0, 3500.0));
-		int idPapas = unidadAbm.agregarPlato(unidad1.getCodigo(), new Plato("Papas", 4000.0, 1200.0));
+		int idHamburguesa1 = unidadAbm.agregarPlato(unidad1.getCodigo(), "Hamburguesa", 8000.0, 3500.0);
+		int idPapas = unidadAbm.agregarPlato(unidad1.getCodigo(), "Papas", 4000.0, 1200.0);
 
-		int idHamburguesa2 = unidadAbm.agregarPlato(unidad2.getCodigo(), new Plato("Hamburguesa", 8500.0, 3700.0));
-		int idChoripan = unidadAbm.agregarPlato(unidad2.getCodigo(), new Plato("Choripan", 3500.0, 1200.0));
+		int idHamburguesa2 = unidadAbm.agregarPlato(unidad2.getCodigo(), "Hamburguesa", 8500.0, 3700.0);
+		int idChoripan = unidadAbm.agregarPlato(unidad2.getCodigo(), "Choripan", 3500.0, 1200.0);
 
 		Plato hamburguesa1 = platoAbm.traer(idHamburguesa1);
 		Plato papas = platoAbm.traer(idPapas);

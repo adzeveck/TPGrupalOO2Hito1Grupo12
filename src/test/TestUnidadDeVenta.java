@@ -91,10 +91,8 @@ public class TestUnidadDeVenta {
 		// --- PLATOS: el alta de Plato pasa por UnidadDeVentaABM.agregarPlato
 		try {
 			if (idFoodTruck != -1) {
-				int idChoripan = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck,
-						new Plato("Choripan", 3500.0, 1200.0));
-				int idGaseosa = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck,
-						new Plato("Gaseosa", 1500.0, 500.0));
+				int idChoripan = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck, "Choripan", 3500.0, 1200.0);
+				int idGaseosa = altaPlatoOReutiliza(abm, "FT00000001", idFoodTruck, "Gaseosa", 1500.0, 500.0);
 
 				PlatoABM platoAbm = new PlatoABM();
 				System.out.println("\n--- Platos del Food Truck ---");
@@ -141,16 +139,15 @@ public class TestUnidadDeVenta {
 	}
 
 	// UnidadDeVentaABM.agregarPlato lanza si ya existe un plato con ese nombre
-	// EN ESA unidad, asi que el test reusa el que ya este cargado (mismo
-	// criterio que altaOReutiliza para Personal). Mantiene el test repetible.
-	private static int altaPlatoOReutiliza(UnidadDeVentaABM abm, String codigoUnidad, int idUnidad, Plato p)
-			throws Exception {
+	// EN ESA unidad, asi que el test reusa el que ya este cargado 
+	private static int altaPlatoOReutiliza(UnidadDeVentaABM abm, String codigoUnidad, int idUnidad,
+			String nombre, double precio, double costo) throws Exception {
 		PlatoABM platoAbm = new PlatoABM();
-		Plato existente = platoAbm.traer(p.getNombre(), idUnidad);
+		Plato existente = platoAbm.traer(nombre, idUnidad);
 		if (existente != null) {
 			return existente.getIdPlato();
 		}
-		return abm.agregarPlato(codigoUnidad, p);
+		return abm.agregarPlato(codigoUnidad, nombre, precio, costo);
 	}
 
 }
