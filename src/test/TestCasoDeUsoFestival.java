@@ -25,18 +25,28 @@ public class TestCasoDeUsoFestival {
 				
 				try {
 				
-					int idUnidad = unidadAbm.agregarFoodTruck("El vikingo", 10.3, "AA00000000", "AA223AC", true);
+					int idUnidad = unidadAbm.agregarFoodTruck("El vikingo", 10.3, "SB00533769", "AA223AC", true);
+					int idUnidad1 = unidadAbm.agregarFoodTruck("El sucio dan", 10.3, "SB54212469", "AA223AC", true);
 					UnidadDeVenta unidad = unidadAbm.traer(idUnidad);
+					UnidadDeVenta unidad1 = unidadAbm.traer(idUnidad1);
 					unidad.setFestival(festival);
+					unidad1.setFestival(festival);
 					unidadAbm.modificar(unidad);
-					Festival fest = festivalAbm.traerFestivalYUnidadDeVenta(idFestival);
+					unidadAbm.modificar(unidad1);
+					Festival fest = festivalAbm.traerFestivalYUnidadDeVenta(festival);
+					
 					
 
-					System.out.println("\n---festival---");
-					System.out.println(fest);
-					System.out.println("\nUnidad De Venta Del Festival"
-							+ fest.getLstUnidad());
-					System.out.println("\nID Festival: " + fest.getIdFestival());
+					
+					System.out.println("\nUnidad De Venta Del Festival"+ fest.getLstUnidad());
+					/*
+					 * System.out.println("\nID Festival: " + fest.getIdFestival()); fest =
+					 * festivalAbm.traerFestivaYUnidadConElectricidad(festival, false);
+					 * 
+					 * System.out.println(fest);
+					 * System.out.println("\nUnidad De Venta Del Festival"+ fest.getLstUnidad());
+					 */
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
