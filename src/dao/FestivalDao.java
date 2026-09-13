@@ -94,6 +94,7 @@ public class FestivalDao {
 		return lista;
 	}
 	
+	//Caso de uso: las unidadess de venta dentro de un festival
 	public Festival traerFestivalYUnidadDeVenta(Festival festival) throws HibernateException {
 
 	    Festival objeto = null;
@@ -107,6 +108,7 @@ public class FestivalDao {
 
 	        objeto = (Festival) session.createQuery(hql).setParameter("festival", festival).uniqueResult();
 	        Hibernate.initialize(objeto.getLstUnidad());
+	        
 	    } finally {
 	        session.close();
 	    }
@@ -114,9 +116,7 @@ public class FestivalDao {
 	    return objeto;
 	}
 	
-	/*
-	 * este traer se me ocurrio sobre luego de la correcion del jueves 3/10
-	 */
+	//Caso de uso: las unidadess de venta dentro de un festival que requieren electricidad
 	public Festival traerFestivaYUnidadConElectricidad(Festival festival,boolean requiereElectricidad) throws HibernateException {
 
 	    Festival objeto = null;
@@ -133,7 +133,9 @@ public class FestivalDao {
 	        		.setParameter("festival", festival)
 	        		.setParameter("requiereElectricidad",requiereElectricidad )
 	        		.uniqueResult();
-	        Hibernate.initialize(objeto.getLstUnidad());
+	        
+	        Hibernate.initialize(objeto.getLstUnidad()); 
+	        
 	    } finally {
 	        session.close();
 	    }
