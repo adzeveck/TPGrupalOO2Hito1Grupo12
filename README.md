@@ -22,7 +22,7 @@ Cada vez que se suma un Caso de Uso, se agrega una fila acá:
 | Caso de uso | Responsable | Fecha |
 |---|---|---|
 | Mapeo de UnidadDeVenta con herencia (FoodTruck / PuestoDesarmable) | BautistaANun | 25/08/2026 |
-| Consulta: cocineros de los food trucks con conexion electrica (herencia + uno a muchos) | BautistaANun | 30/08/2026 |
+| Consulta: dotacion de cocineros en food trucks con conexion electrica, por periodo de festivales (herencia + uno a muchos + agregacion) | BautistaANun | 13/09/2026 |
 | Mapeo de Personal con herencia (Cajero / Cocinero) | Paluso | 27/08/2026 |
 | Consulta: unidades de venta dentro de festival | Santiago| 02/09/2026 |
 | plato estrella de un festival | adzeveck | 02/09/2026 |

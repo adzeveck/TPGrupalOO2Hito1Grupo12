@@ -11,6 +11,8 @@ import org.hibernate.query.Query;
 import datos.UnidadDeVenta;
 import datos.Personal;
 import datos.Plato;
+import java.time.LocalDate;
+
 
 public class UnidadDeVentaDao {
 
@@ -142,28 +144,38 @@ public class UnidadDeVentaDao {
 		return idPlato;
 	}
 
-	// CASO DE USO: cocineros asignados a los food trucks que requieren
-	// conexion electrica, con el festival en el que estan.
+	// CASO DE USO: dotacion de cocineros de los food trucks que requieren
+	// conexion electrica, en los festivales que arrancan dentro de un periodo.
+	//
+	// Para que sirve: dimensionar el tendido electrico del predio segun cuantas
+	// unidades lo van a necesitar, y ver si las unidades criticas tienen
+	// personal con experiencia (por eso el ingreso mas antiguo).
+	//
 	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero.
-	public List<Object[]> traerCocinerosDeFoodTrucksConElectricidad() {
+	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
 		List<Object[]> lista = new ArrayList<Object[]>();
 		try {
 			iniciaOperacion();
 			Query<Object[]> query = session.createQuery(
-					"select f.nombre, ft.nombre, ft.patente, c.apellido, c.nombre, c.especialidad "
+					"select f.nombre, ft.nombre, ft.patente, count(c), min(c.fechaIngreso) "
 					+ "from FoodTruck ft "
-					+ "left join ft.festival f "
+					+ "join ft.festival f "
 					+ "join ft.lstPersonal c "
 					+ "where type(c) = Cocinero "
 					+ "and ft.requiereElectricidad = true "
-					+ "order by f.nombre asc, ft.nombre asc, c.apellido asc",
+					+ "and f.fechaInicio between :desde and :hasta "
+					+ "group by f.nombre, ft.nombre, ft.patente "
+					+ "order by f.nombre asc, count(c) desc",
 					Object[].class);
+			query.setParameter("desde", desde);
+			query.setParameter("hasta", hasta);
 			lista = query.getResultList();
 		} finally {
 			session.close();
 		}
 		return lista;
 	}
+
 
 	
 	
