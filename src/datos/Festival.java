@@ -1,9 +1,10 @@
 package datos;
 
 import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.Set;
-//import java.util.List;
+
 
 
 public class Festival {
@@ -138,7 +139,7 @@ public class Festival {
 
 	@Override
 	public String toString() {
-		return "Festival [idFestival=" + idFestival + ", nombre=" + nombre + ", temporada=" + temporada
+		return "\nFestival [idFestival=" + idFestival + ", nombre=" + nombre + ", temporada=" + temporada
 				+ ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", costoSuperficie=" + costoSuperficie
 				+ ", plusElectricidad=" + plusElectricidad + ", costoMontaje=" + costoMontaje + ", sueldoBase="
 				+ sueldoBase + ", valorAnioAntiguedad=" + valorAnioAntiguedad + "]";

@@ -94,7 +94,8 @@ public class FestivalDao {
 		return lista;
 	}
 	
-	public Festival traerFestivalYUnidadDeVenta(int idFestival) throws HibernateException {
+	//Caso de uso: las unidadess de venta dentro de un festival
+	public Festival traerFestivalYUnidadDeVenta(Festival festival) throws HibernateException {
 
 	    Festival objeto = null;
 
@@ -102,17 +103,44 @@ public class FestivalDao {
 	        iniciaOperacion();
 
 	        String hql = "select distinct f from Festival f "
-	                   + "inner join fetch f.lstUnidad u "
-	                   + "where f.idFestival = :idFestival";
+	                + "inner join fetch f.lstUnidad u "
+	                + "where f = :festival ";
 
-	        objeto = (Festival) session.createQuery(hql).setParameter("idFestival", idFestival).uniqueResult();
+	        objeto = (Festival) session.createQuery(hql).setParameter("festival", festival).uniqueResult();
 	        Hibernate.initialize(objeto.getLstUnidad());
+	        
 	    } finally {
 	        session.close();
 	    }
 
 	    return objeto;
 	}
-	          
+	
+	//Caso de uso: las unidadess de venta dentro de un festival que requieren electricidad
+	public Festival traerFestivaYUnidadConElectricidad(Festival festival,boolean requiereElectricidad) throws HibernateException {
+
+	    Festival objeto = null;
+
+	    try {
+	        iniciaOperacion();
+
+	        String hql = "select distinct f from Festival f "
+	                + "inner join fetch f.lstUnidad u "
+	                + "where f = :festival "
+	                + "and u.requiereElectricidad = :requiereElectricidad";
+
+	        objeto = (Festival) session.createQuery(hql)
+	        		.setParameter("festival", festival)
+	        		.setParameter("requiereElectricidad",requiereElectricidad )
+	        		.uniqueResult();
+	        
+	        Hibernate.initialize(objeto.getLstUnidad()); 
+	        
+	    } finally {
+	        session.close();
+	    }
+
+	    return objeto;
+	}  
      
 }

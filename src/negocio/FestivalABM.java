@@ -30,8 +30,11 @@ public class FestivalABM {
 		dao.eliminar(f);
 	}
 	
-	public Festival traerFestivalYUnidadDeVenta(int idFestival) {
-		return dao.traerFestivalYUnidadDeVenta(idFestival);
+	public Festival traerFestivalYUnidadDeVenta(Festival festival) {
+		return dao.traerFestivalYUnidadDeVenta(festival);
+	}
+	public Festival traerFestivaYUnidadConElectricidad(Festival festival,boolean requiereElectricidad) {
+		return dao.traerFestivaYUnidadConElectricidad(festival, requiereElectricidad);
 	}
 
 }
