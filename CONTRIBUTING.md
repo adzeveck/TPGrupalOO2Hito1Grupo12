@@ -19,6 +19,11 @@
      el proyecto).
 4. Corré `src/test/TestConexion.java` como Java Application. Si imprime `Conexión OK`,
    tu setup está listo.
+5. Para probar los casos de uso (son de **solo consulta**), cargá los datos de ejemplo en tu
+   MySQL local: importá `epicentro_gourmet.sql` (raíz del repo) desde Workbench
+   (`Server → Data Import → Import from Self-Contained File`) o abrí el `.sql` y ejecutalo.
+   Recrea todas las tablas con datos listos para consultar. Los tests **no dan de alta nada**:
+   asumen la base ya cargada por este script.
 
 ## Git workflow
 

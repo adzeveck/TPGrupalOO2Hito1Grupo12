@@ -26,4 +26,5 @@ Cada vez que se suma un Caso de Uso, se agrega una fila acá:
 | Mapeo de Personal con herencia (Cajero / Cocinero) | Paluso | 27/08/2026 |
 | Consulta: unidades de venta dentro de festival | Santiago| 02/09/2026 |
 | plato estrella de un festival | adzeveck | 02/09/2026 |
+| pedido con sus detalles y platos | adzeveck | 12/09/2026 |
 
