@@ -1,6 +1,7 @@
 package negocio;
 
 import java.util.List;
+import java.time.LocalDate;
 
 import dao.UnidadDeVentaDao;
 import datos.FoodTruck;
@@ -85,8 +86,8 @@ public class UnidadDeVentaABM {
 	}
 
 
-	public List<Object[]> traerCocinerosDeFoodTrucksConElectricidad() {
-		return dao.traerCocinerosDeFoodTrucksConElectricidad();
+	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
+		return dao.traerDotacionCocinerosFoodTrucksConElectricidad(desde, hasta);
 	}
 
 
