@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Cocinero extends Personal{
 	private String especialidad;
 	private double plusCategoria;
-	
+
 	public Cocinero() {}
 	public Cocinero(String nombre, String apellido, String dni, LocalDate fechaNacimiento,LocalDate fechaIngreso,String especialidad, double plusCategoria) {
 		super(nombre, apellido, dni, fechaNacimiento, fechaIngreso);
@@ -26,9 +26,9 @@ public class Cocinero extends Personal{
 	}
 	@Override
 	public String toString() {
-		return "Personal ["+super.toString()+"Cocinero especialidad=" + especialidad + ", plusCategoria=" + plusCategoria + "]";
+		return super.toString()+"Cocinero especialidad=" + especialidad + ", plusCategoria=" + plusCategoria + "]";
 	}
-	
-	
-	
+
+
+
 }

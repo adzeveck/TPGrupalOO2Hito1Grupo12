@@ -1,7 +1,6 @@
 package datos;
 
 import java.time.LocalDate;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,11 +18,11 @@ public class Festival {
 	private Double costoMontaje;
 	private Double sueldoBase;
 	private Double valorAnioAntiguedad;
-	private Set<UnidadDeVenta> lstUnidad = new HashSet<UnidadDeVenta>();
+	private Set<UnidadDeVenta> lstUnidad = new HashSet<>();
 
 	public Festival() {}
-	
-	
+
+
 	public Festival(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin,
 			Double costoSuperficie, Double plusElectricidad, Double costoMontaje, Double sueldoBase,
 			Double valorAnioAntiguedad) {
@@ -117,7 +116,7 @@ public class Festival {
 	}
 
 
-	
+
 
 
 	public void setValorAnioAntiguedad(Double valorAnioAntiguedad) {
@@ -125,7 +124,7 @@ public class Festival {
 	}
 
 
-	
+
 
 	public Set<UnidadDeVenta> getLstUnidad() {
 		return lstUnidad;

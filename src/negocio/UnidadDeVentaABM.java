@@ -1,14 +1,14 @@
 package negocio;
 
-import java.util.List;
 import java.time.LocalDate;
+import java.util.List;
 
 import dao.UnidadDeVentaDao;
 import datos.FoodTruck;
-import datos.PuestoDesarmable;
-import datos.UnidadDeVenta;
 import datos.Personal;
 import datos.Plato;
+import datos.PuestoDesarmable;
+import datos.UnidadDeVenta;
 
 
 
@@ -68,9 +68,9 @@ public class UnidadDeVentaABM {
 		}
 		dao.eliminar(u);
 	}
-	
-	
-	public void asignarPersonal(String codigo, int idPersonal) throws Exception {		
+
+
+	public void asignarPersonal(String codigo, int idPersonal) throws Exception {
 		UnidadDeVenta u = dao.traerPorCodigo(codigo);
 		PersonalABM personalAbm = new PersonalABM();
 		Personal existente = personalAbm.traer(idPersonal);
@@ -106,6 +106,6 @@ public class UnidadDeVentaABM {
 		return dao.agregarPlato(u.getId(), plato);
 	}
 
-	
-	
+
+
 }
