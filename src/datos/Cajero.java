@@ -19,10 +19,10 @@ public class Cajero extends Personal {
 	}
 	@Override
 	public String toString() {
-		return "Personal ["+super.toString() +"Cajero [turno=" + turno + "]";
-		
+		return super.toString() +"Cajero [turno=" + turno + "]";
+
 	}
-	
-	
-	
+
+
+
 }

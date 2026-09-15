@@ -10,11 +10,11 @@ public abstract class Personal {
 	protected String dni;
 	protected LocalDate fechaNacimiento;
 	protected LocalDate fechaIngreso;
-	
+
 	public Personal() {}
-	
+
 	public Personal(String nombre, String apellido, String dni, LocalDate fechaNacimiento, LocalDate fechaIngreso) {
-		
+
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
@@ -75,7 +75,7 @@ public abstract class Personal {
 		return "Personal [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
 				+ ", fechaNacimiento=" + fechaNacimiento + ", fechaIngreso=" + fechaIngreso + "]";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -92,6 +92,6 @@ public abstract class Personal {
 	public int hashCode() {
 		return dni == null ? 0 : dni.toLowerCase().hashCode();
 	}
-	
-	//public abstract double calcularSueldo(Costo costo); 
+
+	//public abstract double calcularSueldo(Costo costo);
 }

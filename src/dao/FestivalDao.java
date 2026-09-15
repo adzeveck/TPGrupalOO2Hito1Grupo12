@@ -1,10 +1,6 @@
 package dao;
 
 import java.util.ArrayList;
-
-
-
-
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -16,10 +12,10 @@ import org.hibernate.query.Query;
 import datos.Festival;
 
 public class FestivalDao {
-	
+
 	private static Session session;
 	private Transaction tx;
-	
+
 	private void iniciaOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
 		tx = session.beginTransaction();
@@ -44,7 +40,7 @@ public class FestivalDao {
 		return id;
 	}
 
-	
+
 	public void actualizar(Festival objeto) {
 		try {
 			iniciaOperacion();
@@ -80,10 +76,10 @@ public class FestivalDao {
 		return objeto;
 	}
 
-	
+
 
 	public List<Festival> traer() {
-		List<Festival> lista = new ArrayList<Festival>();
+		List<Festival> lista = new ArrayList<>();
 		try {
 			iniciaOperacion();
 			Query<Festival> query = session.createQuery("from Festival f order by f.nombre asc", Festival.class);
@@ -93,7 +89,7 @@ public class FestivalDao {
 		}
 		return lista;
 	}
-	
+
 	//Caso de uso: las unidadess de venta dentro de un festival
 	public Festival traerFestivalYUnidadDeVenta(Festival festival) throws HibernateException {
 
@@ -108,14 +104,14 @@ public class FestivalDao {
 
 	        objeto = (Festival) session.createQuery(hql).setParameter("festival", festival).uniqueResult();
 	        Hibernate.initialize(objeto.getLstUnidad());
-	        
+
 	    } finally {
 	        session.close();
 	    }
 
 	    return objeto;
 	}
-	
+
 	//Caso de uso: las unidadess de venta dentro de un festival que requieren electricidad
 	public Festival traerFestivaYUnidadConElectricidad(Festival festival,boolean requiereElectricidad) throws HibernateException {
 
@@ -133,14 +129,14 @@ public class FestivalDao {
 	        		.setParameter("festival", festival)
 	        		.setParameter("requiereElectricidad",requiereElectricidad )
 	        		.uniqueResult();
-	        
-	        Hibernate.initialize(objeto.getLstUnidad()); 
-	        
+
+	        Hibernate.initialize(objeto.getLstUnidad());
+
 	    } finally {
 	        session.close();
 	    }
 
 	    return objeto;
-	}  
-     
+	}
+
 }

@@ -1,13 +1,13 @@
 package negocio;
 import java.time.LocalDate;
+
 import dao.FestivalDao;
 import datos.Festival;
-import datos.Pedido;
 
 public class FestivalABM {
-	
+
 	FestivalDao dao = new FestivalDao();
-	
+
 
 
 	public Festival traer(int idFestival) {
@@ -20,16 +20,16 @@ public class FestivalABM {
 				costoMontaje,sueldoBase, valorAnioAntiguedad);
 		return dao.agregar(f);
 	}
-		
+
 	public void modificar(Festival f) {
 		dao.actualizar(f);
 	}
 
-	public void eliminar(int idFestival) {		
+	public void eliminar(int idFestival) {
 		Festival f = dao.traer(idFestival);
 		dao.eliminar(f);
 	}
-	
+
 	public Festival traerFestivalYUnidadDeVenta(Festival festival) {
 		return dao.traerFestivalYUnidadDeVenta(festival);
 	}
