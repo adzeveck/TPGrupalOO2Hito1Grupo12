@@ -38,7 +38,7 @@ CREATE TABLE `cajero` (
 
 LOCK TABLES `cajero` WRITE;
 /*!40000 ALTER TABLE `cajero` DISABLE KEYS */;
-INSERT INTO `cajero` VALUES (3,'Tarde'),(5,'Mañana'),(7,'Tarde'),(9,'Mañana'),(10,'Mañana'),(11,'Noche');
+INSERT INTO `cajero` VALUES (3,'Tarde'),(5,'Mañana'),(7,'Tarde'),(9,'Mañana'),(10,'Mañana'),(11,'Noche'),(12,'Tarde'),(13,'Noche');
 /*!40000 ALTER TABLE `cajero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `cocinero` (
 
 LOCK TABLES `cocinero` WRITE;
 /*!40000 ALTER TABLE `cocinero` DISABLE KEYS */;
-INSERT INTO `cocinero` VALUES (1,'Parrilla',25000),(2,'Pastas',22000),(4,'Cocina regional',20000),(6,'Pizza',23000),(8,'Pastelería',24000);
+INSERT INTO `cocinero` VALUES (1,'Parrilla',25000),(2,'Pastas',22000),(4,'Cocina regional',20000),(6,'Pizza',23000),(8,'Pastelería',24000),(14,'Parrilla',25000),(15,'Pastas',22000);
 /*!40000 ALTER TABLE `cocinero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +212,7 @@ CREATE TABLE `personal` (
 
 LOCK TABLES `personal` WRITE;
 /*!40000 ALTER TABLE `personal` DISABLE KEYS */;
-INSERT INTO `personal` VALUES (1,'Ana','Gomez','30111222','1990-05-12','2022-03-01',1),(2,'Luis','Perez','31222333','1988-08-21','2021-06-15',1),(3,'Marta','Diaz','32333444','1992-11-03','2023-02-10',1),(4,'Carlos','Sosa','33444555','1985-02-17','2020-04-12',2),(5,'Laura','Fernandez','34555666','1991-07-29','2022-08-01',2),(6,'Diego','Lopez','35666777','1987-09-14','2021-05-20',3),(7,'Sofia','Martinez','36777888','1993-01-25','2024-01-10',3),(8,'Valentina','Romero','37888999','1995-04-30','2023-09-01',4),(9,'Jorge','Acosta','38999000','1984-12-11','2019-07-15',5),(10,'Martin','Ibarra','39000111','1994-06-08','2024-03-05',1),(11,'Rocio','Vera','40111222','1996-10-19','2023-11-20',3);
+INSERT INTO `personal` VALUES (1,'Ana','Gomez','30111222','1990-05-12','2022-03-01',1),(2,'Luis','Perez','31222333','1988-08-21','2021-06-15',1),(3,'Marta','Diaz','32333444','1992-11-03','2023-02-10',1),(4,'Carlos','Sosa','33444555','1985-02-17','2020-04-12',2),(5,'Laura','Fernandez','34555666','1991-07-29','2022-08-01',2),(6,'Diego','Lopez','35666777','1987-09-14','2021-05-20',3),(7,'Sofia','Martinez','36777888','1993-01-25','2024-01-10',3),(8,'Valentina','Romero','37888999','1995-04-30','2023-09-01',4),(9,'Jorge','Acosta','38999000','1984-12-11','2019-07-15',5),(10,'Martin','Ibarra','39000111','1994-06-08','2024-03-05',1),(11,'Rocio','Vera','40111222','1996-10-19','2023-11-20',3),(12,'José','Rodriguez','30555222','1990-04-12','2019-03-01',4),(13,'Arnaldo','Costas','31222111','1988-09-21','2018-04-15',4),(14,'Estella','Ruiz','30777444','1992-01-16','2023-06-10',5),(15,'Ernesto','Farias','33444654','1985-01-17','2019-04-12',2);
 /*!40000 ALTER TABLE `personal` ENABLE KEYS */;
 UNLOCK TABLES;
 
