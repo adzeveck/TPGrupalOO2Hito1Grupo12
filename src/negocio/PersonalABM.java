@@ -2,15 +2,18 @@ package negocio;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import dao.PersonalDao;
 import datos.Cajero;
 import datos.Cocinero;
+import datos.Festival;
 import datos.Personal;
+import datos.UnidadDeVenta;
 
 public class PersonalABM {
-	
+
 	private PersonalDao dao = new PersonalDao();
-	
+
 	public int agregarCocinero(String nombre, String apellido, String dni,LocalDate fechaNacimiento,
 			LocalDate fechaIngreso,String especialidad, double plusCategoria) {
 		Cocinero cocinero = new Cocinero(nombre,apellido,dni,fechaNacimiento,fechaIngreso,especialidad,plusCategoria);
@@ -56,26 +59,28 @@ public class PersonalABM {
     public List<Personal> traer() {
         return dao.traer();
     }
-    
+
     public List<Cajero> traerCajerosPorTurno(String turno) {
         return dao.listarPorTurno(turno);
     }
-    
+
     public long contarPersonal() {
     	return dao.contarPersonal();
     }
-    
+
     public Double promedioPlusCocinero() {
     	return dao.promedioPlusCocinero();
     }
-    
+    public List<Personal> personalCumpleañeroPorFestival(Festival festival){
+    	return dao.personalCumpleañeroPorFestival(festival);
+    }
     public List<Personal> buscarPorFechaDeIngreso(LocalDate desde,LocalDate hasta){
     	return dao.buscarPorFechaIngreso(desde, hasta);
     }
-    public List<Cajero> cajerosDeUnidadPorTurno(int idUnidad, String turno){
-    	return dao.cajerosDeUnidadPorTurno(idUnidad, turno);
+    public List<Cajero> cajerosDeUnidadPorTurno(UnidadDeVenta unidad, String turno){
+    	return dao.cajerosDeUnidadPorTurno(unidad, turno);
     }
-	public List<Personal> personalAntiguoDeUnidad(int idUnidad, int aniosMinimos) {
-		return dao.personalAntiguoDeUnidad(idUnidad, aniosMinimos);
+	public List<Personal> personalAntiguoDeUnidad(UnidadDeVenta unidad, int aniosMinimos) {
+		return dao.personalAntiguoDeUnidad(unidad, aniosMinimos);
 	}
 }

@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import datos.UnidadDeVenta;
 import datos.Personal;
 import datos.Plato;
-import java.time.LocalDate;
+import datos.UnidadDeVenta;
 
 
 public class UnidadDeVentaDao {
@@ -99,7 +99,7 @@ public class UnidadDeVentaDao {
 	}
 
 	public List<UnidadDeVenta> traer() {
-		List<UnidadDeVenta> lista = new ArrayList<UnidadDeVenta>();
+		List<UnidadDeVenta> lista = new ArrayList<>();
 		try {
 			iniciaOperacion();
 			Query<UnidadDeVenta> query = session
@@ -111,9 +111,9 @@ public class UnidadDeVentaDao {
 		}
 		return lista;
 	}
-	
+
 	// Recibe ids y no entidades a proposito: asi la unidad y el personal se
-		// cargan en la misma sesion. 
+		// cargan en la misma sesion.
 	public void asignarPersonal(int idUnidad, int idPersonal) {
 		try {
 			iniciaOperacion();
@@ -153,7 +153,7 @@ public class UnidadDeVentaDao {
 	//
 	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero.
 	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
-		List<Object[]> lista = new ArrayList<Object[]>();
+		List<Object[]> lista = new ArrayList<>();
 		try {
 			iniciaOperacion();
 			Query<Object[]> query = session.createQuery(
@@ -177,6 +177,6 @@ public class UnidadDeVentaDao {
 	}
 
 
-	
-	
+
+
 }

@@ -12,8 +12,8 @@ public abstract class UnidadDeVenta {
 	protected String codigo;
 	protected Festival festival;
 	protected Personal responsable;
-	protected Set<Personal> lstPersonal =new HashSet<Personal>();
-	protected Set<Plato> lstPlatos = new HashSet<Plato>();
+	protected Set<Personal> lstPersonal =new HashSet<>();
+	protected Set<Plato> lstPlatos = new HashSet<>();
 
 	public UnidadDeVenta() {
 

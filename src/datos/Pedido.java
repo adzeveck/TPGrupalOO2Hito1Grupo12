@@ -10,7 +10,7 @@ public class Pedido {
 	private LocalDate fecha;
 	private UnidadDeVenta unidad;
 
-	private Set<DetallePedido> lstDetalle = new HashSet<DetallePedido>();
+	private Set<DetallePedido> lstDetalle = new HashSet<>();
 
 	public Pedido() {
 	}
