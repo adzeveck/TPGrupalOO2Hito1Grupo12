@@ -1,6 +1,7 @@
 package negocio;
 
 import dao.PedidoDao;
+import datos.Festival;
 import datos.Pedido;
 
 public class PedidoABM {
@@ -19,8 +20,8 @@ public class PedidoABM {
 		return dao.traerConDetalle(idPedido);
 	}
 
-	public String traerPlatoEstrella(int idFestival) {
-		return dao.traerPlatoEstrella(idFestival);
+	public String traerPlatoEstrella(Festival festival) {
+		return dao.traerPlatoEstrella(festival);
 	}
 
 }

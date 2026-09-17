@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import datos.Festival;
 import datos.Pedido;
 
 public class PedidoDao {
@@ -69,17 +70,17 @@ public class PedidoDao {
 
 	// CASO DE USO: el nombre del plato mas vendido en todo un festival, sumando
 	// las ventas de TODAS sus unidades
-	public String traerPlatoEstrella(int idFestival) {
+	public String traerPlatoEstrella(Festival festival) {
 		String nombre = null;
 		try {
 			iniciaOperacion();
 			String hql = "select d.plato.nombre "
 					+ "from DetallePedido d "
-					+ "where d.pedido.unidad.festival.idFestival = :idFestival "
+					+ "where d.pedido.unidad.festival = :festival "
 					+ "group by d.plato.nombre "
 					+ "order by sum(d.cantidad) desc";
 			nombre = (String) session.createQuery(hql)
-					.setParameter("idFestival", idFestival)
+					.setParameter("festival", festival)
 					.setMaxResults(1)
 					.uniqueResult();
 		} finally {

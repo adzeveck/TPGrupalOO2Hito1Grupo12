@@ -14,6 +14,10 @@ public class FestivalABM {
 		return dao.traer(idFestival);
 	}
 
+	public Festival traer(String nombre) {
+		return dao.traer(nombre);
+	}
+
 	public int agregar(String nombre, String temporada, LocalDate fechaInicio, LocalDate fechaFin,Double costoSuperficie, Double plusElectricidad,
 			Double costoMontaje, Double sueldoBase,Double valorAnioAntiguedad) {
 		Festival f = new Festival(nombre,  temporada,fechaInicio,fechaFin,costoSuperficie, plusElectricidad,
