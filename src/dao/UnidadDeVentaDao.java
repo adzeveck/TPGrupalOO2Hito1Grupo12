@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import datos.FoodTruck;
 import datos.Personal;
 import datos.Plato;
 import datos.UnidadDeVenta;
@@ -144,31 +145,31 @@ public class UnidadDeVentaDao {
 		return idPlato;
 	}
 
-	// CASO DE USO: dotacion de cocineros de los food trucks que requieren
-	// conexion electrica, en los festivales que arrancan dentro de un periodo.
-	//
-	// Para que sirve: dimensionar el tendido electrico del predio segun cuantas
-	// unidades lo van a necesitar, y ver si las unidades criticas tienen
-	// personal con experiencia (por eso el ingreso mas antiguo).
-	//
-	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero.
-	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
-		List<Object[]> lista = new ArrayList<>();
+	// CASO DE USO: food trucks con menos de "minimoCocineros" cocineros, en los
+	// festivales que arrancan dentro del periodo. Para saber a cuales reforzar.
+	// El join a lstPersonal es LEFT: con inner, una unidad sin ningun cocinero no
+	// entra al group by y queda afuera, justo la peor dotada. Y por eso el filtro
+	// de Cocinero va en el having: en el where anularia el left join.
+	public List<FoodTruck> traerFoodTrucksConDotacionInsuficiente(boolean requiereElectricidad,
+			LocalDate desde, LocalDate hasta, long minimoCocineros) {
+		List<FoodTruck> lista = new ArrayList<>();
 		try {
 			iniciaOperacion();
-			Query<Object[]> query = session.createQuery(
-					"select f.nombre, ft.nombre, ft.patente, count(c), min(c.fechaIngreso) "
+			Query<FoodTruck> query = session.createQuery(
+					"select ft "
 					+ "from FoodTruck ft "
 					+ "join ft.festival f "
-					+ "join ft.lstPersonal c "
-					+ "where type(c) = Cocinero "
-					+ "and ft.requiereElectricidad = true "
+					+ "left join ft.lstPersonal c "
+					+ "where ft.requiereElectricidad = :requiereElectricidad "
 					+ "and f.fechaInicio between :desde and :hasta "
-					+ "group by f.nombre, ft.nombre, ft.patente "
-					+ "order by f.nombre asc, count(c) desc",
-					Object[].class);
+					+ "group by ft "
+					+ "having sum(case when type(c) = Cocinero then 1 else 0 end) < :minimoCocineros "
+					+ "order by sum(case when type(c) = Cocinero then 1 else 0 end) asc, ft.nombre asc",
+					FoodTruck.class);
+			query.setParameter("requiereElectricidad", requiereElectricidad);
 			query.setParameter("desde", desde);
 			query.setParameter("hasta", hasta);
+			query.setParameter("minimoCocineros", minimoCocineros);
 			lista = query.getResultList();
 		} finally {
 			session.close();

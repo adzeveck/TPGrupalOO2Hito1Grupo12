@@ -13,13 +13,16 @@
 		<property name="superficie" column="superficie" type="double" />
 		<property name="codigo"     column="codigo"     type="string" />
 
-		<!-- Nullable por ahora: todavia no todos los flujos de alta de UnidadDeVenta
-		     setean el festival. Cuando lo hagan, se puede pasar a not-null="true". -->
-		<many-to-one name="festival" class="datos.Festival" column="idFestival" />
+		<!-- Nullable por ahora: no todos los flujos de alta setean el festival.
+		     lazy="false" porque el Dao cierra la sesion antes de devolver. -->
+		<many-to-one name="festival" class="datos.Festival" column="idFestival"
+			lazy="false" fetch="select" />
 
 		<!-- El responsable a cargo: UN Personal. La FK va en esta tabla.
-		     Nullable, igual que festival: el alta todavia no lo pide. -->
-		<many-to-one name="responsable" class="datos.Personal" column="idResponsable" />
+		     lazy="false" ademas para que no quede como proxy de Personal: al estar
+		     tambien en lstPersonal, el proxy rompe el instanceof Cocinero. -->
+		<many-to-one name="responsable" class="datos.Personal" column="idResponsable"
+			lazy="false" fetch="select" />
 	
 		
 		<set name="lstPersonal" lazy="false">

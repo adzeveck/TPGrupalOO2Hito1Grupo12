@@ -101,4 +101,15 @@ public abstract class UnidadDeVenta {
 		this.lstPlatos.add(p);
 	}
 
+	// La unidad sabe cual es su propia dotacion de cocina.
+	public long cantidadCocineros() {
+		long cantidad = 0;
+		for (Personal p : lstPersonal) {
+			if (p instanceof Cocinero) {
+				cantidad++;
+			}
+		}
+		return cantidad;
+	}
+
 }
