@@ -101,8 +101,7 @@ public abstract class UnidadDeVenta {
 		this.lstPlatos.add(p);
 	}
 
-	// La unidad sabe cual es su propia dotacion de cocina: quien la use no
-	// tiene que recorrerle la coleccion por afuera.
+	// La unidad sabe cual es su propia dotacion de cocina.
 	public long cantidadCocineros() {
 		long cantidad = 0;
 		for (Personal p : lstPersonal) {

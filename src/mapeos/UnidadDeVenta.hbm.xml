@@ -13,30 +13,14 @@
 		<property name="superficie" column="superficie" type="double" />
 		<property name="codigo"     column="codigo"     type="string" />
 
-		<!-- Nullable por ahora: todavia no todos los flujos de alta de UnidadDeVenta
-		     setean el festival. Cuando lo hagan, se puede pasar a not-null="true".
-
-		     lazy="false" porque el Dao cierra la sesion antes de devolver: si quedara
-		     como proxy, cualquier uso del festival afuera del Dao tiraria
-		     LazyInitializationException (incluso un println, porque el toString() de
-		     UnidadDeVenta imprime el festival).
-		     fetch="select" para que lo traiga con un SELECT aparte y no agregue un
-		     join a las consultas agrupadas. -->
+		<!-- Nullable por ahora: no todos los flujos de alta setean el festival.
+		     lazy="false" porque el Dao cierra la sesion antes de devolver. -->
 		<many-to-one name="festival" class="datos.Festival" column="idFestival"
 			lazy="false" fetch="select" />
 
 		<!-- El responsable a cargo: UN Personal. La FK va en esta tabla.
-		     Nullable, igual que festival: el alta todavia no lo pide.
-
-		     lazy="false" por dos motivos:
-		     1) el Dao cierra la sesion antes de devolver, asi que usarlo afuera
-		        tiraria LazyInitializationException;
-		     2) mas sutil: si queda lazy, Hibernate crea un proxy de Personal (no
-		        sabe la subclase sin ir a la base). Como el responsable tambien
-		        esta en lstPersonal, la garantia de identidad hace que la coleccion
-		        devuelva ESE proxy, y entonces "instanceof Cocinero" da false
-		        aunque en la base sea un cocinero. Con lazy="false" Hibernate lo
-		        trae de una y la instancia es de la subclase real. -->
+		     lazy="false" ademas para que no quede como proxy de Personal: al estar
+		     tambien en lstPersonal, el proxy rompe el instanceof Cocinero. -->
 		<many-to-one name="responsable" class="datos.Personal" column="idResponsable"
 			lazy="false" fetch="select" />
 	

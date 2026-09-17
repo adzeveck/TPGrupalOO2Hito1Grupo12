@@ -145,28 +145,11 @@ public class UnidadDeVentaDao {
 		return idPlato;
 	}
 
-	// CASO DE USO: unidades de venta con dotacion de cocina insuficiente.
-	//
-	// Devuelve los food trucks que participan de los festivales que arrancan
-	// dentro del periodo [desde, hasta] y que tienen MENOS de "minimoCocineros"
-	// cocineros asignados, filtrando por si requieren o no conexion electrica.
-	//
-	// Para que sirve: detectar a que unidades hay que reforzar con personal de
-	// cocina antes de que arranque el festival. Se consulta por separado las que
-	// requieren corriente (equipamiento pesado, necesitan mas gente) de las que no.
-	//
-	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero,
-	// y cubre las dos relaciones del enunciado: herencia (dos veces: "from
-	// FoodTruck" y "type(c) = Cocinero") y uno a muchos ("ft.lstPersonal").
-	//
-	// Por que LEFT join y no join:
-	//   con un inner join, una unidad sin ningun cocinero no produce ninguna fila,
-	//   nunca entra al group by y queda afuera del resultado. Seria justo la peor
-	//   dotada. El left join la conserva.
-	// Por que el filtro de Cocinero va en el having y no en el where:
-	//   el where descartaria las filas donde c es NULL (las unidades sin personal),
-	//   anulando el left join. Por eso se cuenta condicionalmente:
-	//   sum(case when type(c) = Cocinero then 1 else 0 end).
+	// CASO DE USO: food trucks con menos de "minimoCocineros" cocineros, en los
+	// festivales que arrancan dentro del periodo. Para saber a cuales reforzar.
+	// El join a lstPersonal es LEFT: con inner, una unidad sin ningun cocinero no
+	// entra al group by y queda afuera, justo la peor dotada. Y por eso el filtro
+	// de Cocinero va en el having: en el where anularia el left join.
 	public List<FoodTruck> traerFoodTrucksConDotacionInsuficiente(boolean requiereElectricidad,
 			LocalDate desde, LocalDate hasta, long minimoCocineros) {
 		List<FoodTruck> lista = new ArrayList<>();

@@ -87,11 +87,7 @@ public class UnidadDeVentaABM {
 
 
 	// CASO DE USO: unidades de venta con dotacion de cocina insuficiente.
-	// Food trucks de los festivales que arrancan en el periodo que tienen menos
-	// de "minimoCocineros" cocineros asignados, para saber a cuales reforzar.
-	//
-	// El ABM valida los criterios antes de consultar: la capa de negocio es la
-	// que decide que es un pedido valido, el Dao solo sabe traducirlo a HQL.
+	// El ABM valida los criterios; el Dao solo los traduce a HQL.
 	public List<FoodTruck> traerFoodTrucksConDotacionInsuficiente(boolean requiereElectricidad,
 			LocalDate desde, LocalDate hasta, long minimoCocineros) throws Exception {
 		if (desde == null || hasta == null) {
