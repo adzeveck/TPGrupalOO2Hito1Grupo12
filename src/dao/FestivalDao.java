@@ -76,6 +76,20 @@ public class FestivalDao {
 		return objeto;
 	}
 
+	public Festival traer(String nombre) {
+		Festival objeto = null;
+		try {
+			iniciaOperacion();
+			objeto = (Festival) session
+					.createQuery("from Festival f where f.nombre = :nombre")
+					.setParameter("nombre", nombre)
+					.uniqueResult();
+		} finally {
+			session.close();
+		}
+		return objeto;
+	}
+
 
 
 	public List<Festival> traer() {
