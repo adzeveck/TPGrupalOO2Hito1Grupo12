@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import datos.FoodTruck;
 import datos.Personal;
 import datos.Plato;
 import datos.UnidadDeVenta;
@@ -144,31 +145,48 @@ public class UnidadDeVentaDao {
 		return idPlato;
 	}
 
-	// CASO DE USO: dotacion de cocineros de los food trucks que requieren
-	// conexion electrica, en los festivales que arrancan dentro de un periodo.
+	// CASO DE USO: unidades de venta con dotacion de cocina insuficiente.
 	//
-	// Para que sirve: dimensionar el tendido electrico del predio segun cuantas
-	// unidades lo van a necesitar, y ver si las unidades criticas tienen
-	// personal con experiencia (por eso el ingreso mas antiguo).
+	// Devuelve los food trucks que participan de los festivales que arrancan
+	// dentro del periodo [desde, hasta] y que tienen MENOS de "minimoCocineros"
+	// cocineros asignados, filtrando por si requieren o no conexion electrica.
 	//
-	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero.
-	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
-		List<Object[]> lista = new ArrayList<>();
+	// Para que sirve: detectar a que unidades hay que reforzar con personal de
+	// cocina antes de que arranque el festival. Se consulta por separado las que
+	// requieren corriente (equipamiento pesado, necesitan mas gente) de las que no.
+	//
+	// Atraviesa Festival -> UnidadDeVenta -> FoodTruck -> Personal -> Cocinero,
+	// y cubre las dos relaciones del enunciado: herencia (dos veces: "from
+	// FoodTruck" y "type(c) = Cocinero") y uno a muchos ("ft.lstPersonal").
+	//
+	// Por que LEFT join y no join:
+	//   con un inner join, una unidad sin ningun cocinero no produce ninguna fila,
+	//   nunca entra al group by y queda afuera del resultado. Seria justo la peor
+	//   dotada. El left join la conserva.
+	// Por que el filtro de Cocinero va en el having y no en el where:
+	//   el where descartaria las filas donde c es NULL (las unidades sin personal),
+	//   anulando el left join. Por eso se cuenta condicionalmente:
+	//   sum(case when type(c) = Cocinero then 1 else 0 end).
+	public List<FoodTruck> traerFoodTrucksConDotacionInsuficiente(boolean requiereElectricidad,
+			LocalDate desde, LocalDate hasta, long minimoCocineros) {
+		List<FoodTruck> lista = new ArrayList<>();
 		try {
 			iniciaOperacion();
-			Query<Object[]> query = session.createQuery(
-					"select f.nombre, ft.nombre, ft.patente, count(c), min(c.fechaIngreso) "
+			Query<FoodTruck> query = session.createQuery(
+					"select ft "
 					+ "from FoodTruck ft "
 					+ "join ft.festival f "
-					+ "join ft.lstPersonal c "
-					+ "where type(c) = Cocinero "
-					+ "and ft.requiereElectricidad = true "
+					+ "left join ft.lstPersonal c "
+					+ "where ft.requiereElectricidad = :requiereElectricidad "
 					+ "and f.fechaInicio between :desde and :hasta "
-					+ "group by f.nombre, ft.nombre, ft.patente "
-					+ "order by f.nombre asc, count(c) desc",
-					Object[].class);
+					+ "group by ft "
+					+ "having sum(case when type(c) = Cocinero then 1 else 0 end) < :minimoCocineros "
+					+ "order by sum(case when type(c) = Cocinero then 1 else 0 end) asc, ft.nombre asc",
+					FoodTruck.class);
+			query.setParameter("requiereElectricidad", requiereElectricidad);
 			query.setParameter("desde", desde);
 			query.setParameter("hasta", hasta);
+			query.setParameter("minimoCocineros", minimoCocineros);
 			lista = query.getResultList();
 		} finally {
 			session.close();

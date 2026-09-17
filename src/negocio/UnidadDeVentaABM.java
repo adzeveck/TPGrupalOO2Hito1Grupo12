@@ -86,8 +86,27 @@ public class UnidadDeVentaABM {
 	}
 
 
-	public List<Object[]> traerDotacionCocinerosFoodTrucksConElectricidad(LocalDate desde, LocalDate hasta) {
-		return dao.traerDotacionCocinerosFoodTrucksConElectricidad(desde, hasta);
+	// CASO DE USO: unidades de venta con dotacion de cocina insuficiente.
+	// Food trucks de los festivales que arrancan en el periodo que tienen menos
+	// de "minimoCocineros" cocineros asignados, para saber a cuales reforzar.
+	//
+	// El ABM valida los criterios antes de consultar: la capa de negocio es la
+	// que decide que es un pedido valido, el Dao solo sabe traducirlo a HQL.
+	public List<FoodTruck> traerFoodTrucksConDotacionInsuficiente(boolean requiereElectricidad,
+			LocalDate desde, LocalDate hasta, long minimoCocineros) throws Exception {
+		if (desde == null || hasta == null) {
+			throw new Exception("Hay que indicar el periodo completo: desde y hasta");
+		}
+		if (desde.isAfter(hasta)) {
+			throw new Exception("El periodo esta invertido: 'desde' (" + desde
+					+ ") es posterior a 'hasta' (" + hasta + ")");
+		}
+		if (minimoCocineros < 1) {
+			throw new Exception("El minimo de cocineros tiene que ser al menos 1, "
+					+ "si no la consulta no puede devolver nada");
+		}
+		return dao.traerFoodTrucksConDotacionInsuficiente(requiereElectricidad, desde, hasta,
+				minimoCocineros);
 	}
 
 

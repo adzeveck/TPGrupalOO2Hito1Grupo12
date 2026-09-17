@@ -1,43 +1,39 @@
 package test;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import datos.FoodTruck;
 import negocio.UnidadDeVentaABM;
 
 public class TestUnidadDeVenta {
 
 	// Los datos los carga epicentro_gourmet.sql (raiz del repo).
 	// Este test solo consulta: no da de alta nada.
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		UnidadDeVentaABM abm = new UnidadDeVentaABM();
+		LocalDate desde = LocalDate.of(2026, 1, 1);
+		LocalDate hasta = LocalDate.of(2026, 12, 31);
 
-		System.out.println("--- CASO DE USO: dotacion de cocineros en food trucks con conexion electrica ---");
-		System.out.println("Sirve para dimensionar el tendido electrico del predio y ver si las");
-		System.out.println("unidades criticas tienen personal con experiencia.");
-		System.out.println();
+		System.out.println("--- CASO DE USO: unidades de venta con dotacion de cocina insuficiente ---");
+		System.out.println("Food trucks de los festivales del periodo con menos cocineros que el minimo,");
+		System.out.println("para saber a cuales hay que reforzar antes de que arranque el festival.");
 
-		mostrar(abm, LocalDate.of(2026, 1, 1), LocalDate.of(2026, 12, 31));
-		mostrar(abm, LocalDate.of(2026, 7, 1), LocalDate.of(2026, 12, 31));
-	}
-
-	private static void mostrar(UnidadDeVentaABM abm, LocalDate desde, LocalDate hasta) {
-		List<Object[]> filas = abm.traerDotacionCocinerosFoodTrucksConElectricidad(desde, hasta);
-
-		System.out.printf("Festivales que arrancan entre %s y %s:%n", desde, hasta);
-
-		if (filas.isEmpty()) {
-			System.out.println("  (ningun food truck con conexion electrica en ese periodo)");
-			System.out.println();
-			return;
+		System.out.println("\nCon conexion electrica, festivales entre " + desde + " y " + hasta + ", minimo 3:");
+		for (FoodTruck ft : abm.traerFoodTrucksConDotacionInsuficiente(true, desde, hasta, 3)) {
+			System.out.println("  " + ft.getNombre() + " (" + ft.getFestival().getNombre() + "): "
+					+ ft.cantidadCocineros() + " cocineros");
 		}
 
-		System.out.printf("  %-22s | %-22s | %-9s | %-9s | %s%n",
-				"FESTIVAL", "UNIDAD", "PATENTE", "COCINEROS", "INGRESO MAS ANTIGUO");
-		for (Object[] f : filas) {
-			System.out.printf("  %-22s | %-22s | %-9s | %-9s | %s%n", f[0], f[1], f[2], f[3], f[4]);
+		System.out.println("\nSin conexion electrica, mismo periodo y mismo minimo:");
+		for (FoodTruck ft : abm.traerFoodTrucksConDotacionInsuficiente(false, desde, hasta, 3)) {
+			System.out.println("  " + ft.getNombre() + " (" + ft.getFestival().getNombre() + "): "
+					+ ft.cantidadCocineros() + " cocineros");
 		}
-		System.out.println();
+
+		// Sin festivales que arranquen en el segundo semestre: tiene que dar vacio.
+		System.out.println("\nCon conexion electrica, pero solo el segundo semestre:");
+		System.out.println("  " + abm.traerFoodTrucksConDotacionInsuficiente(true,
+				LocalDate.of(2026, 7, 1), hasta, 3));
 	}
 }
