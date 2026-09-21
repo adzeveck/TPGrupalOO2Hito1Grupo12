@@ -71,16 +71,14 @@ public class PersonalABM {
     public Double promedioPlusCocinero() {
     	return dao.promedioPlusCocinero();
     }
-    public List<Personal> personalCumpleañeroPorFestival(Festival festival){
-    	return dao.personalCumpleañeroPorFestival(festival);
-    }
+   
     public List<Personal> buscarPorFechaDeIngreso(LocalDate desde,LocalDate hasta){
     	return dao.buscarPorFechaIngreso(desde, hasta);
     }
-    public List<Cajero> cajerosDeUnidadPorTurno(UnidadDeVenta unidad, String turno){
-    	return dao.cajerosDeUnidadPorTurno(unidad, turno);
+    public List<Cajero> cajerosDeUnidadPorTurnoYFestival(Festival festival, UnidadDeVenta unidad, String turno){
+    	return dao.cajerosDeUnidadPorTurnoYFestival(festival,unidad, turno);
     }
-	public List<Personal> personalAntiguoDeUnidad(UnidadDeVenta unidad, int aniosMinimos) {
-		return dao.personalAntiguoDeUnidad(unidad, aniosMinimos);
+	public List<Personal> personalAntiguoDeUnidadPorFestival(Festival festival, UnidadDeVenta unidad, int aniosMinimos) {
+		return dao.personalAntiguoDeUnidadPorFestival(festival, unidad, aniosMinimos);
 	}
 }

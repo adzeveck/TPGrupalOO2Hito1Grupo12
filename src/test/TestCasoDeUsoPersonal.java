@@ -11,18 +11,18 @@ import negocio.FestivalABM;
 import negocio.PersonalABM;
 import negocio.UnidadDeVentaABM;
 
-public class TestCasoDeIUsoPersonal {
+public class TestCasoDeUsoPersonal {
 
 	public static void main(String[] args) {
 
 		PersonalABM abm = new PersonalABM();
 		UnidadDeVentaABM unidadDeVentaAbm = new UnidadDeVentaABM();
-		FestivalABM festival = new FestivalABM();
+		FestivalABM festivalAbm = new FestivalABM();
 
 		// --- BUSQUEDA POR TURNO
-		List<Cajero> nocheros = abm.traerCajerosPorTurno("Mañana");
+		List<Cajero> cajerosTurno = abm.traerCajerosPorTurno("Mañana");
 		System.out.println("\n---BUSQUEDA POR TURNO: ");
-		nocheros.forEach(System.out::println);
+		cajerosTurno.forEach(System.out::println);
 		System.out.println();
 
 		// --- BUSQUEDA POR FECHA DE INGRESO
@@ -39,28 +39,15 @@ public class TestCasoDeIUsoPersonal {
 		System.out.println("\n---PROMEDIO PLUS CATEGORIA: "+abm.promedioPlusCocinero());
 		System.out.println();
 
-		//BUSQUEDA DE PERSONAL QUE CUMPLEN AÑOS DURANTE UN FESTIVAL
-		try {
-			Festival fest = festival.traer(2);
-			List<Personal> personalCumpleañero = abm.personalCumpleañeroPorFestival(fest);
-			System.out.println("\n---PERSONAL CUMPLEAÑERO DURANTE FESTIVAL: "+fest.getNombre()+"---");
-			System.out.println("Cantidad encontrada: " + personalCumpleañero.size());
-			personalCumpleañero.forEach(System.out::println);
-			
-			System.out.println();
-		}catch(Exception e){
-			e.getMessage();
-		}
-
 
 		// --- BUSQUEDA DE CAJERO EN UNIDAD POR TURNO
 		try {
+			Festival festival = festivalAbm.traer(3);
 			UnidadDeVenta unidad = unidadDeVentaAbm.traer(4);
 			String turno= "Noche";
-			List<Cajero> cajeros = abm.cajerosDeUnidadPorTurno(unidad, turno);
-			System.out.println("\n--- CAJEROS POR TURNO " +turno+" DE UNIDAD: "+unidad.getNombre()+" ---");
-			System.out.println("Cantidad encontrada: " + cajeros.size());
-			cajeros.forEach(System.out::println);
+			List<Cajero> cajeros = abm.cajerosDeUnidadPorTurnoYFestival(festival, unidad, turno);
+			System.out.println("\n--- CAJEROS POR TURNO ** " +turno+"** DE UNIDAD: ***"+unidad.getNombre()+"*** EN FESTIVAL: ***"+festival.getNombre()+"*** ---");
+			System.out.println("Cantidad encontrada: " + cajeros.size());			cajeros.forEach(System.out::println);
 			
 			System.out.println();
 
@@ -71,10 +58,11 @@ public class TestCasoDeIUsoPersonal {
 
 		// --- BUSQUEDA DE PERSONAL MÁS INTIGUO DE UNIDAD	
 		try {
+			Festival festival = festivalAbm.traer(1);
 			UnidadDeVenta unidad = unidadDeVentaAbm.traerPorCodigo("FT00000003");
 			int años = 2;
-			List<Personal> personal = abm.personalAntiguoDeUnidad(unidad, años);
-			System.out.println("\n--- PERSONAL MÁS INTIGUO DE UNIDAD : "+unidad.getNombre()+"---");
+			List<Personal> personal = abm.personalAntiguoDeUnidadPorFestival(festival,unidad, años);
+			System.out.println("\n--- PERSONAL MÁS INTIGUO DE UNIDAD: ***"+unidad.getNombre()+"*** EN FESTIVAL: ***"+festival.getNombre()+"*** ---");
 			System.out.println("Cantidad encontrada: "+ personal.size());
 			personal.forEach(System.out::println);
 			

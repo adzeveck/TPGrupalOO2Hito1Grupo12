@@ -2,7 +2,6 @@ package dao;
 
 
 import java.time.LocalDate;
-import java.time.MonthDay;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,45 +147,7 @@ public class PersonalDao {
 		return promedio;
 	}
 
-	// Personal de un Festival que cumpleaños durante el Festival
-	public List<Personal> personalCumpleañeroPorFestival(Festival festival) {
-	    List<Personal> personal = new ArrayList<>();
-	    try {
-	        iniciaOperacion();
-	        List<Personal> todos = session.createQuery(
-	                "SELECT p FROM Festival f JOIN f.lstUnidad u JOIN u.lstPersonal p " +
-	                "WHERE f = :festival", Personal.class)
-	                .setParameter("festival", festival)
-	                .getResultList();
-
-	        MonthDay inicio = MonthDay.from(festival.getFechaInicio());
-	        MonthDay fin = MonthDay.from(festival.getFechaFin());
-
-	        for (Personal p : todos) {
-	            if (p.getFechaNacimiento() == null) {
-					continue;
-				}
-	            MonthDay cumple = MonthDay.from(p.getFechaNacimiento());
-
-	            boolean estaEnRango;
-	            if (inicio.compareTo(fin) <= 0) {
-	                // Caso normal: el festival no cruza el fin de año
-	                estaEnRango = !cumple.isBefore(inicio) && !cumple.isAfter(fin);
-	            } else {
-	                // Caso borde: el festival cruza de un año a otro (ej. 20/dic - 05/ene)
-	                estaEnRango = !cumple.isBefore(inicio) || !cumple.isAfter(fin);
-	            }
-
-	            if (estaEnRango) {
-	                personal.add(p);
-	            }
-	        }
-
-	    } finally {
-	        session.close();
-	    }
-	    return personal;
-	}
+	
 	// Personal contratado en un rango de fechas
 	public List<Personal> buscarPorFechaIngreso(LocalDate desde, LocalDate hasta) {
 	    List<Personal> personal = new ArrayList<>();
@@ -203,13 +164,14 @@ public class PersonalDao {
 		return personal;
 	}
 	// Cajeros de Unidad por Turno
-	public List<Cajero> cajerosDeUnidadPorTurno(UnidadDeVenta unidad, String turno) {
+	public List<Cajero> cajerosDeUnidadPorTurnoYFestival(Festival festival, UnidadDeVenta unidad, String turno) {
 	    try {
 	    	iniciaOperacion();
 	    	List<Personal> resultado = session.createQuery(
-	                "SELECT c FROM UnidadDeVenta u JOIN TREAT(u.lstPersonal AS Cajero) c " +
-	                "WHERE u = :unidad AND c.turno = :turno", Personal.class)
-	                .setParameter("unidad", unidad)
+	    			"SELECT c FROM Festival f JOIN f.lstUnidad u JOIN TREAT(u.lstPersonal AS Cajero) c " +
+	    			"WHERE f = :festival AND u = :unidad AND LOWER(c.turno) = LOWER(:turno)", Personal.class)
+	                .setParameter("festival", festival)
+	    			.setParameter("unidad", unidad)
 	                .setParameter("turno", turno)
 	                .getResultList();
 	        List<Cajero> cajeros = new ArrayList<Cajero>();
@@ -223,15 +185,16 @@ public class PersonalDao {
 	}
 
 
-	public List<Personal> personalAntiguoDeUnidad(UnidadDeVenta unidad, int aniosMinimos) {
+	public List<Personal> personalAntiguoDeUnidadPorFestival(Festival festival, UnidadDeVenta unidad, int aniosMinimos) {
 	    LocalDate fechaLimite = LocalDate.now().minusYears(aniosMinimos);
 	    try {
 	        iniciaOperacion();
 	        return session.createQuery(
-	                "SELECT p FROM UnidadDeVenta u JOIN u.lstPersonal p " +
-	                "WHERE u = :unidad AND p.fechaIngreso <= :fechaLimite " +
+	        		"SELECT p FROM Festival f JOIN f.lstUnidad u JOIN u.lstPersonal p " +
+	                "WHERE f = :festival AND u = :unidad AND p.fechaIngreso <= :fechaLimite " +
 	                "ORDER BY p.fechaIngreso ASC", Personal.class)
-	                .setParameter("unidad", unidad)
+	        		.setParameter("festival", festival)
+	        		.setParameter("unidad", unidad)
 	                .setParameter("fechaLimite", fechaLimite)
 	                .getResultList();
 	    } finally {
